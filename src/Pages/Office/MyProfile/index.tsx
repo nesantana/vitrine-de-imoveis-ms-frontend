@@ -417,7 +417,12 @@ export const MyProfile: React.FC<any> = () => {
                           value={stateDocument}
                         >
                           {filteredStates.map((state: any) => (
-                            <option key={state.initials} value={state.initials}>{state.name}</option>
+                            <option
+                              key={state.initials}
+                              value={state.initials}
+                            >
+                              {state.name}
+                            </option>
                           ))}
                         </Select>
                       </FormControl>

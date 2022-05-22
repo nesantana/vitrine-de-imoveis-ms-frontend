@@ -3,10 +3,12 @@ import {
 } from '@chakra-ui/react'
 import { useMyInformations } from '@src/Contexts/MyInformations.context'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { FaHome, FaMapMarker, FaUser } from 'react-icons/fa'
 import { FiMessageCircle, FiXCircle } from 'react-icons/fi'
+import { MdSell } from 'react-icons/md'
+import { RiAdvertisementLine } from 'react-icons/ri'
 
 import { isEmpty } from 'lodash'
 import { destroyCookie } from 'nookies'
@@ -14,35 +16,52 @@ import { api } from '@src/Services/Api'
 import { apiFormData } from '@src/Services/ApiFormData'
 import { useAlertContext } from '@src/Contexts/Alert.context'
 
-export const DashboardOffice: React.FC<any> = ({ children }) => {
-  const menu = [
-    {
-      id: 0,
-      label: 'HOME',
-      icon: FaHome,
-      link: '/escritorio',
-    },
-    {
-      id: 1,
-      label: 'MEU PERFIL',
-      icon: FaUser,
-      link: '/escritorio/perfil',
-    },
-    {
-      id: 2,
-      label: 'MEUS IMÓVEIS',
-      icon: FaMapMarker,
-      link: '/escritorio/imoveis',
-    },
-    {
-      id: 3,
-      label: 'CONTATOS',
-      icon: FiMessageCircle,
-      link: '/escritorio/contatos',
-    },
-  ]
+const menuSimple = [
+  {
+    id: 0,
+    label: 'HOME',
+    icon: FaHome,
+    link: '/escritorio',
+  },
+  {
+    id: 1,
+    label: 'MEU PERFIL',
+    icon: FaUser,
+    link: '/escritorio/perfil',
+  },
+  {
+    id: 2,
+    label: 'MEUS IMÓVEIS',
+    icon: FaMapMarker,
+    link: '/escritorio/imoveis',
+  },
+  {
+    id: 3,
+    label: 'CONTATOS',
+    icon: FiMessageCircle,
+    link: '/escritorio/contatos',
+  },
+]
 
-  const { searchMyInformations, myInformations } = useMyInformations()
+const menuAdmin = [
+  {
+    id: 4,
+    label: 'FINANCIAMENTO',
+    icon: MdSell,
+    link: '/escritorio/financiamento',
+  },
+  {
+    id: 5,
+    label: 'ANÚNCIOS',
+    icon: RiAdvertisementLine,
+    link: '/escritorio/anuncios',
+  },
+]
+
+export const DashboardOffice: React.FC<any> = ({ children }) => {
+  const [menu, setMenu] = useState(menuSimple)
+
+  const { searchMyInformations, myInformations, resetMyInformations } = useMyInformations()
   const { asPath, push: routerPush } = useRouter()
 
   useEffect(() => {
@@ -50,6 +69,19 @@ export const DashboardOffice: React.FC<any> = ({ children }) => {
       searchMyInformations()
     }
   }, [asPath])
+
+  useEffect(() => {
+    if (Number(myInformations.is_admin)) {
+      setMenu(
+        [
+          ...menuSimple,
+          ...menuAdmin,
+        ],
+      )
+    } else {
+      setMenu(menuSimple)
+    }
+  }, [myInformations])
 
   const { setAlert } = useAlertContext()
 
@@ -64,8 +96,12 @@ export const DashboardOffice: React.FC<any> = ({ children }) => {
     setTimeout(() => {
       api.removeToken()
       apiFormData.removeToken()
-      routerPush('/login')
+      resetMyInformations()
     }, 0)
+
+    setTimeout(() => {
+      routerPush('/login')
+    }, 1000)
   }
 
   return (

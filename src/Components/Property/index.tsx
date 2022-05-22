@@ -49,7 +49,7 @@ export const Property: React.FC<any> = ({ property, small = false, hasEdit = fal
       >
         {
           property.photos ? (
-            <Image src={urls.images + property.photos.split(',')[0]} height={small ? '190px' : '270px'} width="100%" />
+            <Box backgroundImage={`url(${urls.images + property.photos.split(',')[0]})`} backgroundSize="cover" backgroundPosition="center center" height={small ? '190px' : '270px'} width="100%" />
           ) : (
             <Flex height={small ? '190px' : '270px'} width="100%" bg="gray.300" justifyContent="center" alignItems="center">
               <Icon as={FiImage} fontSize={60} color="gray.500" />
@@ -100,7 +100,7 @@ export const Property: React.FC<any> = ({ property, small = false, hasEdit = fal
             {
               property?.characteristics.map((char: string) => (
                 <Badge
-                  key={char}
+                  key={`${char}char`}
                   mr="10px"
                   mt="10px"
                   p="3px 10px"
@@ -149,14 +149,15 @@ export const Property: React.FC<any> = ({ property, small = false, hasEdit = fal
         <Flex
           position="absolute"
           bg={hasFavorite ? 'orange.500' : 'white'}
-          top="140px"
+          top={small ? '140px' : '220px'}
           left="10px"
           height="40px"
           width="40px"
           borderRadius="5px"
           onClick={(e) => handleFavorite(e)}
+          shadow="md"
         >
-          <Icon as={FiStar} fontSize="20px" color={hasFavorite ? 'white' : 'gray.500'} margin="auto" />
+          <Icon as={FiStar} fontSize="20px" color={hasFavorite ? 'white' : 'gray.500'} margin="auto" fill={hasFavorite ? 'white' : 'transparent'} />
         </Flex>
       </Box>
     </Link>

@@ -1,6 +1,6 @@
 import {
   Box,
-  Breadcrumb, BreadcrumbItem, BreadcrumbLink, Grid, GridItem, Link,
+  Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Grid, GridItem, Image, Link,
 } from '@chakra-ui/react'
 import React, { ReactNode } from 'react'
 import { Banner } from '../Banner'
@@ -12,10 +12,13 @@ interface iDashboard {
   children: ReactNode
   breadcrumb?: any[],
   breadcrumbCerter?: boolean
+  bannerHeader?: boolean
+  bannerFooter?: boolean
 }
 
 export const Dashboard: React.FC<iDashboard> = ({
   children, title = '', breadcrumb = [], breadcrumbCerter = false,
+  bannerHeader = true, bannerFooter = true,
 }) => {
   const a = 'a'
   return (
@@ -23,11 +26,22 @@ export const Dashboard: React.FC<iDashboard> = ({
       <Header />
       <Banner title={title} />
 
+      {
+        bannerHeader && (
+        <Box mt="30px" mb="30px">
+          <Flex justifyContent="center">
+            <Image src="/banners/grande-header.png" mr="30px" />
+            <Image src="/banners/pequeno-header.png" />
+          </Flex>
+        </Box>
+        )
+      }
+
       {!!breadcrumb.length && (
         <Container>
-          <Breadcrumb py="30px" textAlign={breadcrumbCerter ? 'center' : 'initial'}>
+          <Breadcrumb pt={bannerHeader ? '0' : '30px'} pb="30px" textAlign={breadcrumbCerter ? 'center' : 'initial'}>
             {breadcrumb.map((bread, index) => (
-              <BreadcrumbItem key={bread.label + bread.href} color="gray.500">
+              <BreadcrumbItem key={bread.label + bread.href + index} color="gray.500">
                 <BreadcrumbLink as={Link} textTransform="uppercase" href={bread.href} color={bread.active && 'green'}>
                   {bread.label}
                 </BreadcrumbLink>
@@ -39,7 +53,17 @@ export const Dashboard: React.FC<iDashboard> = ({
 
       { children }
 
-      <Box bg="gray.700" mt="30px" py="60px">
+      {
+        bannerFooter && (
+        <Box py="30px">
+          <Flex justifyContent="center">
+            <Image src="/banners/grande-final.png" />
+          </Flex>
+        </Box>
+        )
+      }
+
+      <Box bg="gray.700" py="60px" mt={bannerFooter ? '0' : '30px'}>
         <Container>
           <Grid
             templateColumns="repeat(4, 1fr)"

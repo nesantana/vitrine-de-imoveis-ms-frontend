@@ -6,6 +6,7 @@ import { useLoadingContext } from './Loading.context'
 interface iMyInformations {
   myInformations: iInformations
   searchMyInformations(): void
+  resetMyInformations(): void
 }
 
 export const MyInformations = createContext({} as iMyInformations)
@@ -29,10 +30,15 @@ export const MyInformationsProvider: React.FC<any> = ({ children }) => {
     }
   }
 
+  const resetMyInformations = () => {
+    setMyInformations({} as iInformations)
+  }
+
   return (
     <MyInformations.Provider value={{
       myInformations,
       searchMyInformations,
+      resetMyInformations,
     }}
     >
       { children }

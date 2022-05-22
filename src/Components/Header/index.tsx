@@ -118,7 +118,7 @@ export const Header: React.FC<any> = () => {
             <Flex>
               {menu.map((item) => (
                 <Link
-                  key={item.id}
+                  key={item.id + item.link + item.label}
                   px="20px"
                   py="10px"
                   color="#FFFFFF"
@@ -151,12 +151,6 @@ export const Header: React.FC<any> = () => {
               }}
             >
               MEU ESCRITÓRIO
-
-              {
-                  asPath === '/meu-escritorio' && (
-                    <Box bg="green.500" height="5px" borderRadius="5px" width="100%" position="absolute" left="0" bottom="-2px" />
-                  )
-                }
             </Link>
           </Flex>
         </Container>

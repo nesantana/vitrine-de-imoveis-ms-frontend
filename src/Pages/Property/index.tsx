@@ -136,7 +136,7 @@ export const Property: React.FC<any> = () => {
         </title>
         <meta name="description" content={`${property.title} - A forma mais simples de ser visto na internet.`} />
       </Head>
-      <Dashboard title={property.title} breadcrumb={breadcrumb}>
+      <Dashboard bannerHeader={false} title={property.title} breadcrumb={breadcrumb}>
         <Container>
           {property.photos && (
             <>
@@ -334,6 +334,12 @@ export const Property: React.FC<any> = () => {
                     Solicitar contato
                   </Button>
                 </Box>
+              </Box>
+
+              <Box mt="50px">
+                <Flex>
+                  <Image src="/banners/medio-interno-imoveis.png" />
+                </Flex>
               </Box>
             </GridItem>
           </Grid>

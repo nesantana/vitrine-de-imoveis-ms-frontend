@@ -1,6 +1,6 @@
 import {
   Badge,
-  Box, Button, Flex, Grid, GridItem, Icon, Input, Link, RangeSlider,
+  Box, Button, Flex, Grid, GridItem, Icon, Image, Input, Link, RangeSlider,
   RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack, Select, Tooltip, useProps,
 } from '@chakra-ui/react'
 import { Container } from '@src/Components/Container'
@@ -224,7 +224,7 @@ export const Properties: React.FC<any> = () => {
     }
 
     routerPush({
-      pathname: query.id_professional ? '/imoveis/' : professional.username,
+      pathname: query.id_professional ? professional.username : '/imoveis/',
       query: params,
     })
   }
@@ -371,7 +371,7 @@ export const Properties: React.FC<any> = () => {
                     <Flex color="gray.500">
                       { area.map((a, index) => (
                         <>
-                          <Box key={`${a}area`}>{a}</Box>
+                          <Box key={`${a}${index}area`}>{a}</Box>
                           {index === 0 && (
                           <Box px="5px">
                             até
@@ -404,7 +404,7 @@ export const Properties: React.FC<any> = () => {
                     <Flex color="gray.500">
                       { areaBuild.map((a, index) => (
                         <>
-                          <Box key={`${a}areaBuild`}>{a}</Box>
+                          <Box key={`${a}${index}areaBuild`}>{a}</Box>
                           {index === 0 && (
                           <Box px="5px">
                             até
@@ -519,6 +519,12 @@ export const Properties: React.FC<any> = () => {
                   </Button>
                 </Box>
               </Box>
+
+              <Box mt="30px">
+                <Flex>
+                  <Image src="/banners/grande-busca-imoveis.png" />
+                </Flex>
+              </Box>
             </GridItem>
             <GridItem
               colSpan={3}
@@ -535,7 +541,7 @@ export const Properties: React.FC<any> = () => {
                   >
                     {
                     properties?.map((property: any) => (
-                      <Box key={property.id} mb="15px">
+                      <Box key={`${property.id}property`} mb="15px">
                         <Property property={property} small />
                       </Box>
                     ))
