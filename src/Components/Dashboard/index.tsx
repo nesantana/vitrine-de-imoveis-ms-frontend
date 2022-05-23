@@ -161,12 +161,12 @@ export const Dashboard: React.FC<iDashboard> = ({
                       <Flex mt="5px" justifyContent="space-between" width="100%">
                         <Flex>
                           <Tooltip label="Compartilhar com alguém no WhatsApp!" hasArrow placement="right">
-                            <Link position="relative" top="2px" href={`https://api.whatsapp.com/send?text=Olha o que achei no Vitrine de Imóveis MS! ${fav.title} - veja mais no link: https://vitrinedeimoveisms.com.br/imoveis/${fav.id}`} target="_blank">
+                            <Link position="relative" top="2px" href={`https://api.whatsapp.com/send?text=Olha o que achei no Vitrine de Imóveis MS! ${fav.title} - veja mais no link: ${process.env.NEXT_PUBLIC_MY_URL}/imoveis/${fav.id}`} target="_blank">
                               <Icon as={FaWhatsapp} marginLeft="5px" />
                             </Link>
                           </Tooltip>
                           <Tooltip label="Ver imóvel!" hasArrow placement="right">
-                            <Link position="relative" top="2px" href={`https://vitrinedeimoveisms.com.br/imoveis/${fav.id}`} target="_blank">
+                            <Link position="relative" top="2px" href={`${process.env.NEXT_PUBLIC_MY_URL}/imoveis/${fav.id}`} target="_blank">
                               <Icon as={FaEye} marginLeft="5px" />
                             </Link>
                           </Tooltip>

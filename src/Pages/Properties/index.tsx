@@ -16,7 +16,8 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { FaWhatsapp } from 'react-icons/fa'
-import { FiMail, FiMapPin, FiPhone } from 'react-icons/fi'
+import { FiMail, FiMapPin } from 'react-icons/fi'
+import { GiHummingbird } from 'react-icons/gi'
 import Masonry from 'react-masonry-css'
 
 export const Properties: React.FC<any> = () => {
@@ -270,6 +271,24 @@ export const Properties: React.FC<any> = () => {
                     <Flex mb="10px">
                       {professional.name}
                     </Flex>
+                    <Box mb="10px">
+                      <Flex alignItems="center">
+                        <Icon as={GiHummingbird} fontSize="30px" mr="5px" />
+                        <Box>
+                          {JSON.parse(professional.professional_document).map((doc: any) => (
+                            <Box key={doc.id}>
+                              CRECI
+                              {' '}
+                              {doc.state}
+                              {' '}
+                              -
+                              {' '}
+                              {doc.document}
+                            </Box>
+                          ))}
+                        </Box>
+                      </Flex>
+                    </Box>
                     <Tooltip label="Clique e fale com o corretor" hasArrow placement="left">
                       <Link href={`https://api.whatsapp.com/send?phone=55${professional.phone}&text=Ol%C3%A1%20${professional.name},%20te%20encontrei%20atrav%C3%A9s%20do%20Vitrine%20de%20Im%C3%B3veis%20MS`} target="_blank">
                         <Flex alignItems="center" mb="10px">

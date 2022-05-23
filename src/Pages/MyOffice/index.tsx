@@ -93,7 +93,8 @@ export const MyOffice: React.FC<any> = () => {
                     e pode compartilhar de forma simples.
                   </Box>
                   <Box color="blue.400" textDecoration="underline">
-                    vitrinedeimoveisms.com.br/seunome
+                    {process.env.NEXT_PUBLIC_MY_URL}
+                    /seunome
                   </Box>
                 </Box>
               </GridItem>

@@ -13,6 +13,7 @@ import { apiFormData } from '@src/Services/ApiFormData'
 import axios from 'axios'
 import { isEmpty } from 'lodash'
 import Head from 'next/head'
+import { env } from 'process'
 import React, {
   useEffect, useMemo, useState,
 } from 'react'
@@ -284,8 +285,8 @@ export const MyProfile: React.FC<any> = () => {
                   <InputWithLabel label="Link do Escritório" setValue={setUsername} value={username} />
                   <Tooltip label="Esse será o link para apresentar seus imóveis, seu escritório virtual!" hasArrow>
                     <Flex color="gray.500" _hover={{ color: 'gray.700' }} fontSize="13px" mt="5px" justifyContent="space-between">
-                      <Link href={`https://vitrinedeimoveisms.com.br/${username}`} target="_blank">
-                        https://vitrinedeimoveisms.com.br/
+                      <Link href={`${process.env.NEXT_PUBLIC_MY_URL}/${username}`} target="_blank">
+                        {process.env.NEXT_PUBLIC_MY_URL}
                         { username }
                       </Link>
 
