@@ -98,7 +98,7 @@ const urls = {
     create: '/financing/',
     findAll: '/financing/findAll',
   },
-  images: 'http://localhost:21291/uploads/',
+  images: 'https://levvei.com/vitrineimoveis/uploads/',
   zipcode: 'https://viacep.com.br/ws/#zipcode/json/',
   findCities: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/#uf/distritos?orderBy=nome',
   geocoding: 'https://maps.googleapis.com/maps/api/geocode/json',
