@@ -179,16 +179,14 @@ export const Create: React.FC<any> = () => {
     }
 
     try {
-      await api.post(url, params)
+      const { data } : any = await api.post(url, params)
 
       setAlert({
         type: 'success',
         message: `Imóvel ${id ? 'Editado' : 'Cadastrado'} com Sucesso!`,
       })
 
-      setTimeout(() => {
-        router.push('/escritorio/imoveis/')
-      }, 3000)
+      router.push(`/escritorio/imoveis/${data.id}`)
     } catch (error: any) {
       setAlert({
         type: 'error',
