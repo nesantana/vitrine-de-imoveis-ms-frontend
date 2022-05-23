@@ -7,6 +7,8 @@ interface iFavoriteContext {
   setFavorite(alert: iFavorite): void
   removeFavorite(id: number): void
   setFavorites(favorites: iFavorite[]): void
+  openFavorite: boolean
+  setOpenFavorite(bool: boolean): void
 }
 
 export const FavoritesContext = createContext({} as iFavoriteContext)
@@ -15,6 +17,7 @@ export const useFavoritesContext = () => useContext(FavoritesContext)
 
 export const FavoritesProvider: React.FC<any> = ({ children }) => {
   const [favorites, setFavorites] = useState<iFavorite[]>([] as iFavorite[])
+  const [openFavorite, setOpenFavorite] = useState<boolean>(false)
 
   const setFavorite = async (favorite: iFavorite) => {
     const newFavorites = [
@@ -39,6 +42,8 @@ export const FavoritesProvider: React.FC<any> = ({ children }) => {
       setFavorite,
       removeFavorite,
       setFavorites,
+      openFavorite,
+      setOpenFavorite,
     }}
     >
       { children }

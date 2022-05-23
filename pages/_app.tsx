@@ -113,6 +113,16 @@ const GlobalStyle = createGlobalStyle`
   a:focus {
     box-shadow: none !important;
   }
+
+  .close-favorites {
+    left: -400px;
+    transition: 0.5s ease-in-out;
+  }
+
+  .open-favorites {
+    left: 30px;
+    transition: 0.5s ease-in-out;
+  }
 `
 
 function MyApp({ Component, pageProps }: AppProps) {

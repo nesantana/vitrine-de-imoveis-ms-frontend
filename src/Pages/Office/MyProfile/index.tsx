@@ -183,7 +183,7 @@ export const MyProfile: React.FC<any> = () => {
     }
   }
 
-  const uploadImage = async (files: any[]) => {
+  const uploadImage = async (files: FileList) => {
     const file = files[0]
 
     const formData = new FormData()
@@ -262,7 +262,7 @@ export const MyProfile: React.FC<any> = () => {
                   Trocar foto
                 </Box>
 
-                <Input cursor="pointer" height="100%" type="file" onChange={({ target }) => uploadImage(target.files)} position="absolute" top="0" bottom="0" left="0" right="0" opacity="0" />
+                <Input cursor="pointer" height="100%" type="file" onChange={({ target }) => uploadImage(target.files as FileList)} position="absolute" top="0" bottom="0" left="0" right="0" opacity="0" />
               </Box>
             </GridItem>
             <GridItem colSpan={3}>

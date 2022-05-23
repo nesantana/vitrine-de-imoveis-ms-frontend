@@ -202,11 +202,11 @@ export const Create: React.FC<any> = () => {
   const [photos, setPhotos] = useState<string[]>([])
   const [loaderImage, setLoaderImage] = useState<boolean>(false)
 
-  const uploadImage = async (files: Blob[]) => {
+  const uploadImage = async (files: FileList) => {
     setLoaderImage(true)
     const formData = new FormData()
 
-    const newFiles = [...files]
+    const newFiles = Array.from(files)
 
     newFiles.forEach((file) => {
       formData.append('photos', file)
@@ -268,7 +268,7 @@ export const Create: React.FC<any> = () => {
                           height="100%"
                           multiple
                           type="file"
-                          onChange={({ target }) => uploadImage(target.files)}
+                          onChange={({ target }) => uploadImage(target.files as FileList)}
                           position="absolute"
                           top="0"
                           bottom="0"

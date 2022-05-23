@@ -1,8 +1,15 @@
+/* eslint-disable react/no-unescaped-entities */
 import {
   Box,
-  Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Grid, GridItem, Image, Link,
+  Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Grid, GridItem, Icon, Image, Link, Tooltip,
 } from '@chakra-ui/react'
+import { useFavoritesContext } from '@src/Contexts/Favorite.context'
+import { iFavorite } from '@src/Interfaces'
 import React, { ReactNode } from 'react'
+import {
+  FaEye, FaStar, FaTrash, FaWhatsapp,
+} from 'react-icons/fa'
+import { FiImage, FiX } from 'react-icons/fi'
 import { Banner } from '../Banner'
 import { Container } from '../Container'
 import { Header } from '../Header'
@@ -20,7 +27,9 @@ export const Dashboard: React.FC<iDashboard> = ({
   children, title = '', breadcrumb = [], breadcrumbCerter = false,
   bannerHeader = true, bannerFooter = true,
 }) => {
-  const a = 'a'
+  const {
+    favorites, removeFavorite, openFavorite, setOpenFavorite,
+  } = useFavoritesContext()
   return (
     <>
       <Header />
@@ -114,6 +123,90 @@ export const Dashboard: React.FC<iDashboard> = ({
           </Grid>
         </Container>
 
+        { !!favorites.length && (
+        <>
+          <Box
+            bg="white"
+            position="fixed"
+            bottom="110px"
+            shadow="lg"
+            overflow="hidden"
+            borderRadius="5px"
+            maxWidth="300px"
+            zIndex="1"
+            className={openFavorite ? 'open-favorites' : 'close-favorites'}
+          >
+            <Flex alignItems="center" bg="orange.500" height="40px" onClick={() => setOpenFavorite(false)} p="0 20px" color="white" justifyContent="space-between" cursor="pointer">
+              Favoritos
+              <Icon as={FiX} />
+            </Flex>
+            <Box overflow="auto" maxHeight="330px">
+              {
+                favorites.map((fav: iFavorite, index) => (
+                  <Flex key={fav.id + fav.title} bg={index % 2 === 0 ? 'white' : 'gray.100'} p="20px" position="relative">
+                    {
+                      fav.photo.length ? (
+                        <Box height="70px" minWidth="70px" width="70px" mr="10px" backgroundImage={`url(${fav.photo})`} backgroundSize="cover" backgroundPosition="center center" />
+                      ) : (
+                        <Flex height="70px" minWidth="70px" width="70px" mr="10px" bg="gray.300" justifyContent="center" alignItems="center">
+                          <Icon as={FiImage} fontSize={20} color="gray.500" />
+                        </Flex>
+                      )
+                    }
+                    <Box>
+                      <Box fontSize="14px">
+                        {fav.title}
+                      </Box>
+
+                      <Flex mt="5px" justifyContent="space-between" width="100%">
+                        <Flex>
+                          <Tooltip label="Compartilhar com alguém no WhatsApp!" hasArrow placement="right">
+                            <Link position="relative" top="2px" href={`https://api.whatsapp.com/send?text=Olha o que achei no Vitrine de Imóveis MS! ${fav.title} - veja mais no link: https://vitrinedeimoveisms.com.br/imoveis/${fav.id}`} target="_blank">
+                              <Icon as={FaWhatsapp} marginLeft="5px" />
+                            </Link>
+                          </Tooltip>
+                          <Tooltip label="Ver imóvel!" hasArrow placement="right">
+                            <Link position="relative" top="2px" href={`https://vitrinedeimoveisms.com.br/imoveis/${fav.id}`} target="_blank">
+                              <Icon as={FaEye} marginLeft="5px" />
+                            </Link>
+                          </Tooltip>
+                        </Flex>
+                        <Flex>
+                          <Tooltip label="Remover!" hasArrow placement="right">
+                            <Box position="absolute" right="30px" bottom="17px" onClick={() => removeFavorite(fav.id)} cursor="pointer">
+                              <Icon as={FaTrash} marginLeft="5px" />
+                            </Box>
+                          </Tooltip>
+                        </Flex>
+                      </Flex>
+                    </Box>
+                  </Flex>
+                ))
+              }
+            </Box>
+          </Box>
+          <Flex
+            bg="orange.500"
+            position="fixed"
+            bottom="30px"
+            left="30px"
+            height="50px"
+            width="50px"
+            alignItems="center"
+            justifyContent="center"
+            shadow={openFavorite ? 'md' : 'none'}
+            onClick={() => setOpenFavorite(!openFavorite)}
+            borderRadius="5px"
+            cursor="pointer"
+          >
+            <Icon as={FaStar} fill="white" fontSize="20px" />
+
+            <Flex position="absolute" top="-10px" right="-10px" bg="green.500" height="20px" width="20px" alignItems="center" justifyContent="center" color="white" borderRadius="20px" fontSize="12px" fontWeight="bold">
+              {favorites.length}
+            </Flex>
+          </Flex>
+        </>
+        ) }
       </Box>
     </>
   )

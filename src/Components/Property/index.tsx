@@ -26,7 +26,7 @@ export const Property: React.FC<any> = ({ property, small = false, hasEdit = fal
       setFavorite({
         id: property.id,
         title: property.title,
-        photo: property.photos ? property.photos.split(',')[0] : null,
+        photo: property.photos ? `${urls.images}${property.photos.split(',')[0]}` : '',
       })
     }
   }
