@@ -19,6 +19,7 @@ export default class MyDocument extends Document {
             defer
             src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_API_KEY_GOOGLE}&libraries=places`}
           />
+          <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         </Head>
         <body>
           <div id="fb-root" />
