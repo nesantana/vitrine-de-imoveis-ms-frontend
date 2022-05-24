@@ -98,6 +98,11 @@ const urls = {
     create: '/financing/',
     findAll: '/financing/findAll',
   },
+  dueDate: {
+    findAll: '/users/due-date/',
+    renewAccess: '/users/renew-access/',
+    removeAccess: '/users/remove-access/',
+  },
   images: 'https://levvei.com/vitrineimoveis/uploads/',
   zipcode: 'https://viacep.com.br/ws/#zipcode/json/',
   findCities: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/#uf/distritos?orderBy=nome',

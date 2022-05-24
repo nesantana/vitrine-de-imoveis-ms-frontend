@@ -90,7 +90,7 @@ export const Office: React.FC<any> = () => {
       <DashboardOffice>
         <Container>
           {myInformations.pendding && (
-          <Alert status="error" borderRadius="5px">
+          <Alert status="error" borderRadius="5px" mb="30px">
             <Flex justifyContent="space-between" width="100%">
               <Flex alignItems="center">
                 <AlertIcon />
@@ -106,7 +106,7 @@ export const Office: React.FC<any> = () => {
           )}
 
           {openSignature && (
-          <Box shadow="lg" p="20px" borderRadius="5px" bg="white" mt="30px">
+          <Box shadow="lg" p="20px" borderRadius="5px" bg="white" mt="30px" mb="30px">
             <Grid
               templateColumns="repeat(5, 1fr)"
               gap={5}
