@@ -12,6 +12,7 @@ import { Loader } from '@src/Components/Loader'
 import { MyInformationsProvider } from '@src/Contexts/MyInformations.context'
 import { apiFormData } from '@src/Services/ApiFormData'
 import { FavoritesProvider } from '@src/Contexts/Favorite.context'
+import { MobileProvider } from '@src/Contexts/Mobile.context'
 
 const colors = {
   gray: {
@@ -123,6 +124,8 @@ const GlobalStyle = createGlobalStyle`
     left: 30px;
     transition: 0.5s ease-in-out;
   }
+
+  @media screen and (max-width: 1200px) {}
 `
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -160,9 +163,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           <UtilsProvider>
             <MyInformationsProvider>
               <FavoritesProvider>
-                <GlobalStyle />
-                <Component {...pageProps} />
-                <ContentAlerts />
+                <MobileProvider>
+                  <GlobalStyle />
+                  <Component {...pageProps} />
+                  <ContentAlerts />
+                </MobileProvider>
               </FavoritesProvider>
             </MyInformationsProvider>
           </UtilsProvider>

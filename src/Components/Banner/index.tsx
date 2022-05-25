@@ -15,9 +15,10 @@ import { Container } from '../Container'
 
 interface iBanner {
   title?: string
+  isMobile: boolean
 }
 
-export const Banner: React.FC<iBanner> = ({ title = '' }) => {
+export const Banner: React.FC<iBanner> = ({ title = '', isMobile = false }) => {
   const { searchUtils, purposes, types } = useUtilsContext()
   const [purpose, setPurpose] = useState<string>('')
   const [type, setType] = useState<string>('')
@@ -52,10 +53,10 @@ export const Banner: React.FC<iBanner> = ({ title = '' }) => {
     })
   }
 
-  if (title) {
+  if (title || isMobile) {
     return (
       <Flex height="200px" width="100%" bgImage="url(/fundo.jpg)" bgSize="cover" bgPosition="bottom" alignItems="center" justifyContent="center">
-        <Box color="#FFF" fontSize="45px">
+        <Box color="#FFF" fontSize={isMobile ? '30px' : '45px'} textAlign="center">
           { title }
         </Box>
       </Flex>

@@ -28,6 +28,7 @@ import { useRouter } from 'next/router'
 import ScrollContainer from 'react-indiana-drag-scroll'
 import { apiFormData } from '@src/Services/ApiFormData'
 import Head from 'next/head'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 
 const libraries: any = ['places']
 
@@ -226,6 +227,8 @@ export const Create: React.FC<any> = () => {
     }
   }
 
+  const { isMobile } = useMobileContext()
+
   if (!isLoaded) {
     return (<Loader />)
   }
@@ -250,8 +253,8 @@ export const Create: React.FC<any> = () => {
         {id && (
         <Box position="relative" mb="30px">
           <ScrollContainer horizontal vertical={false}>
-            <Flex wrap="nowrap">
-              <Flex flexDirection="column" flex="1" position="relative" height="270px" minWidth="300px" width="300px" bg="gray.300" justifyContent="center" alignItems="center" cursor="pointer">
+            <Flex flexWrap="nowrap" whiteSpace="nowrap">
+              <Flex flexDirection="column" flex="1" position="relative" height="270px" minWidth={isMobile ? '100%' : '300px'} width="300px" bg="gray.300" justifyContent="center" alignItems="center" cursor="pointer">
                 {
                   loaderImage ? (
                     <Loader />) : (
@@ -278,24 +281,31 @@ export const Create: React.FC<any> = () => {
                   )
                 }
               </Flex>
-              {
-                !!photos.length && photos.map(((img: string) => (
-                  <Image maxWidth="30%" key={img} src={urls.images + img} height="270px" width="100%" />
-                )))
-              }
+              <Flex whiteSpace="nowrap">
+                {
+                  !!photos.length && photos.map(((img: string) => (
+                    <Box key={img} backgroundImage={`url(${urls.images + img})`} height="270px" width="270px" backgroundSize="cover" backgroundPosition="center center" />
+                  )))
+                }
+              </Flex>
             </Flex>
           </ScrollContainer>
+
+          <Flex justifyContent="flex-end" fontSize="14px" mt="5px" alignItems="center">
+            <Icon as={FaArrowsAlt} mr="10px" />
+            Clique nas imagens e arraste para ver mais fotos ou clique em ampliar
+          </Flex>
         </Box>
         )}
 
         <Grid
-          templateColumns="repeat(12, 1fr)"
+          templateColumns={`repeat(${isMobile ? '1' : '12'}, 1fr)`}
           gap={30}
           width="100%"
           background="#FFFFFF"
         >
           <GridItem
-            colSpan={3}
+            colSpan={isMobile ? 1 : 3}
           >
             <FormLabel htmlFor="value">
               Valor (R$)
@@ -332,7 +342,7 @@ export const Create: React.FC<any> = () => {
             </InputGroup>
           </GridItem>
           <GridItem
-            colSpan={3}
+            colSpan={isMobile ? 1 : 3}
           >
             <FormLabel htmlFor="purpose">
               Finalidade
@@ -354,7 +364,7 @@ export const Create: React.FC<any> = () => {
             </Select>
           </GridItem>
           <GridItem
-            colSpan={3}
+            colSpan={isMobile ? 1 : 3}
           >
             <FormLabel htmlFor="type">
               Tipo de Imóvel
@@ -376,7 +386,7 @@ export const Create: React.FC<any> = () => {
             </Select>
           </GridItem>
           <GridItem
-            colSpan={12}
+            colSpan={isMobile ? 1 : 12}
           >
             <FormLabel htmlFor="title">
               Título
@@ -397,7 +407,7 @@ export const Create: React.FC<any> = () => {
             />
           </GridItem>
           <GridItem
-            colSpan={3}
+            colSpan={isMobile ? 1 : 3}
           >
             <FormLabel htmlFor="area">
               Área
@@ -429,7 +439,7 @@ export const Create: React.FC<any> = () => {
             </InputGroup>
           </GridItem>
           <GridItem
-            colSpan={3}
+            colSpan={isMobile ? 1 : 3}
           >
             <FormLabel htmlFor="areaBuild">
               Área total Construída
@@ -461,7 +471,7 @@ export const Create: React.FC<any> = () => {
             </InputGroup>
           </GridItem>
           <GridItem
-            colSpan={3}
+            colSpan={isMobile ? 1 : 3}
           >
             <FormLabel htmlFor="bedrooms">
               Quartos
@@ -493,7 +503,7 @@ export const Create: React.FC<any> = () => {
             </InputGroup>
           </GridItem>
           <GridItem
-            colSpan={3}
+            colSpan={isMobile ? 1 : 3}
           >
             <FormLabel htmlFor="bathrooms">
               Banheiros
@@ -525,7 +535,7 @@ export const Create: React.FC<any> = () => {
             </InputGroup>
           </GridItem>
           <GridItem
-            colSpan={6}
+            colSpan={isMobile ? 1 : 6}
           >
             <GoogleAutoComplete
               address={address}
@@ -545,7 +555,7 @@ export const Create: React.FC<any> = () => {
           </GridItem>
 
           <GridItem
-            colSpan={6}
+            colSpan={isMobile ? 1 : 6}
           >
             <FormLabel>
               Informações

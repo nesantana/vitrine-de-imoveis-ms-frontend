@@ -13,6 +13,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import Head from 'next/head'
 import { Loader } from '@src/Components/Loader'
 import { iContact } from '@src/Interfaces'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 
 export const Contacts: React.FC<any> = () => {
   const { setAlert } = useAlertContext()
@@ -61,6 +62,8 @@ export const Contacts: React.FC<any> = () => {
     }
   }
 
+  const { isMobile } = useMobileContext()
+
   return (
     <>
       <Head>
@@ -76,7 +79,7 @@ export const Contacts: React.FC<any> = () => {
         {
           loading ? <Loader /> : (
             <Masonry
-              breakpointCols={2}
+              breakpointCols={isMobile ? 1 : 2}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column"
             >

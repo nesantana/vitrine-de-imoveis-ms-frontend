@@ -6,6 +6,7 @@ import {
 import { DashboardOffice } from '@src/Components/DashboardOffice'
 import { InputWithLabel } from '@src/Components/InputWithLabel'
 import { useAlertContext } from '@src/Contexts/Alert.context'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 import { useMyInformations } from '@src/Contexts/MyInformations.context'
 import { useUtilsContext } from '@src/Contexts/Utils.context'
 import { api, urls } from '@src/Services/Api'
@@ -205,6 +206,8 @@ export const MyProfile: React.FC<any> = () => {
     }
   }
 
+  const { isMobile } = useMobileContext()
+
   return (
     <>
       <Head>
@@ -214,12 +217,12 @@ export const MyProfile: React.FC<any> = () => {
         <meta name="description" content="Meu perfil | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet." />
       </Head>
       <DashboardOffice>
-        <Container maxWidth="770px" width="100%">
+        <Container maxWidth="770px" padding="0" paddingInline="0" width="100%">
           <Box>
             Perfil
           </Box>
           <Grid
-            templateColumns="repeat(5, 1fr)"
+            templateColumns={`repeat(${isMobile ? '1' : '5'}, 1fr)`}
             gap={30}
             width="100%"
             bg="gray.100"
@@ -227,7 +230,7 @@ export const MyProfile: React.FC<any> = () => {
             borderRadius="5px"
             shadow="lg"
           >
-            <GridItem colSpan={2}>
+            <GridItem colSpan={isMobile ? 3 : 2}>
               {photo ? (
                 <Flex
                   height="244px"

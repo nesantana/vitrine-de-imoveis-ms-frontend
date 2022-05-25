@@ -1,25 +1,23 @@
 import {
-  Badge,
-  Box, Button, Flex, Grid, GridItem, Icon, Image, Link,
+  Box, Button, Grid, GridItem, Link,
 } from '@chakra-ui/react'
 import { Container } from '@src/Components/Container'
 import { Dashboard } from '@src/Components/Dashboard'
 import { api, urls } from '@src/Services/Api'
 import React, { useEffect, useState } from 'react'
-import { FiImage, FiMapPin, FiStar } from 'react-icons/fi'
-import {
-  FaArrowsAlt, FaDoorOpen, FaBed, FaBath,
-} from 'react-icons/fa'
 import { useUtilsContext } from '@src/Contexts/Utils.context'
 import { Property } from '@src/Components/Property'
 import { useLoadingContext } from '@src/Contexts/Loading.context'
 import { Loader } from '@src/Components/Loader'
 import Head from 'next/head'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
+import Masonry from 'react-masonry-css'
 
 export const Home: React.FC<any> = () => {
   const [properties, setProperties] = useState<any[]>()
   const { purposes, types, searchUtils } = useUtilsContext()
   const { setLoading, loading } = useLoadingContext()
+  const { isMobile } = useMobileContext()
 
   const searchProperties = async () => {
     setLoading(true)
@@ -53,24 +51,19 @@ export const Home: React.FC<any> = () => {
           { loading ? (
             <Loader />
           ) : (
-            <Grid
-              templateColumns="repeat(3, 1fr)"
-              gap={3}
-              mt="30px"
-              width="100%"
-              background="#FFFFFF"
+            <Masonry
+              breakpointCols={isMobile ? 1 : 3}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
             >
               {
               properties?.map((property: any) => (
-                <GridItem
-                  key={property.id}
-                  colSpan={1}
-                >
+                <Box key={property.id} mt="30px">
                   <Property property={property} />
-                </GridItem>
+                </Box>
               ))
             }
-            </Grid>
+            </Masonry>
           ) }
 
           <Box mt="30px" textAlign="center">

@@ -23,6 +23,7 @@ import NumberFormatInput from 'react-number-format'
 import { useAlertContext } from '@src/Contexts/Alert.context'
 import Head from 'next/head'
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 
 const libraries: any = ['places']
 
@@ -118,6 +119,8 @@ export const Property: React.FC<any> = () => {
     }
   }
 
+  const { isMobile } = useMobileContext()
+
   if (loading || !property) {
     return <Loader />
   }
@@ -168,7 +171,7 @@ export const Property: React.FC<any> = () => {
           )}
 
           <Grid
-            templateColumns="repeat(3, 1fr)"
+            templateColumns={`repeat(${isMobile ? '1' : '3'}, 1fr)`}
             gap={30}
             mt={property.photos ? '30px' : '0'}
             width="100%"
@@ -183,8 +186,8 @@ export const Property: React.FC<any> = () => {
               </Flex>
 
               <Flex flexDirection="column" p="20px" bg="gray.100" borderRadius="5px">
-                <Flex justifyContent="space-between" alignItems="center">
-                  <Flex alignItems="center" pr="30px">
+                <Flex justifyContent="space-between" alignItems="center" flexWrap="wrap">
+                  <Flex alignItems="center" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
                     <Icon as={FaArrowsAlt} color="gray.500" width="20px" mr="5px" />
                     <Box color="gray.500" fontSize="14px">
                       { `${property.area} ` }
@@ -192,7 +195,7 @@ export const Property: React.FC<any> = () => {
                       <sup>2</sup>
                     </Box>
                   </Flex>
-                  <Flex alignItems="center" fontSize="14px" pr="30px">
+                  <Flex alignItems="center" fontSize="14px" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
                     <Icon as={FaDoorOpen} color="gray.500" width="20px" mr="5px" />
                     <Box color="gray.500">
                       { `${property.area_build} ` }
@@ -200,13 +203,13 @@ export const Property: React.FC<any> = () => {
                       <sup>2</sup>
                     </Box>
                   </Flex>
-                  <Flex alignItems="center" fontSize="14px" pr="30px">
+                  <Flex alignItems="center" fontSize="14px" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
                     <Icon as={FaBed} color="gray.500" width="20px" mr="5px" />
                     <Box color="gray.500">
                       { `${property.bedrooms} quartos` }
                     </Box>
                   </Flex>
-                  <Flex alignItems="center" fontSize="14px" pr="30px">
+                  <Flex alignItems="center" fontSize="14px" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
                     <Icon as={FaBath} color="gray.500" width="20px" mr="5px" />
                     <Box color="gray.500">
                       { `${property.bathrooms} banheiros` }
@@ -253,9 +256,9 @@ export const Property: React.FC<any> = () => {
               }
             </GridItem>
             <GridItem
-              colSpan={1}
+              colSpan={isMobile ? 2 : 1}
             >
-              <Box bg="gray.100" p="20px" borderRadius="5px" shadow="lg" position="relative" pb="40px">
+              <Box bg="gray.100" p="20px" borderRadius="5px" shadow="lg" position="relative" pb="40px" width="100%">
                 <Box>
                   FALAR COM CORRETOR
                 </Box>
@@ -336,11 +339,15 @@ export const Property: React.FC<any> = () => {
                 </Box>
               </Box>
 
-              <Box mt="50px">
-                <Flex>
-                  <Image src="/banners/medio-interno-imoveis.png" />
-                </Flex>
-              </Box>
+              {
+                isMobile && (
+                <Box mt="50px">
+                  <Flex>
+                    <Image src="/banners/medio-interno-imoveis.png" />
+                  </Flex>
+                </Box>
+                )
+            }
             </GridItem>
           </Grid>
         </Container>

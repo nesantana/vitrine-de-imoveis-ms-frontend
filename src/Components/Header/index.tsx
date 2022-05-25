@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
-  Box, Flex, Image, Link,
+  Box, Flex, Icon, Image, Link,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import { useFavoritesContext } from '@src/Contexts/Favorite.context'
+import { FiMenu, FiX } from 'react-icons/fi'
 import { Container } from '../Container'
 
-export const Header: React.FC<any> = () => {
+export const Header: React.FC<any> = ({ isMobile }) => {
   const menu = [
     {
       id: 0,
@@ -34,6 +35,8 @@ export const Header: React.FC<any> = () => {
   const { asPath } = useRouter()
   const { setFavorites } = useFavoritesContext()
 
+  const [openMenu, setOpenMenu] = useState<boolean>(false)
+
   const searchFavorites = async () => {
     const { favorites } = await parseCookies(null, 'favorites')
 
@@ -48,45 +51,52 @@ export const Header: React.FC<any> = () => {
     <>
       <Box bg="green.400" color="#FFFFFF" fontSize="15px" py="8px">
         <Container>
-          <Flex justifyContent="space-between">
-            <Flex>
-              <Link
-                px="10px"
-                cursor="pointer"
-                _hover={{
-                  textDecoration: 'underline',
-                }}
-                href="/imoveis?purpose=0"
-              >
-                COMPRAR
-              </Link>
-              <Box>
-                |
-              </Box>
-              <Link
-                px="10px"
-                cursor="pointer"
-                _hover={{
-                  textDecoration: 'underline',
-                }}
-                href="/imoveis?purpose=1"
-              >
-                ALUGAR
-              </Link>
-              <Box>
-                |
-              </Box>
-              <Link
-                px="10px"
-                cursor="pointer"
-                _hover={{
-                  textDecoration: 'underline',
-                }}
-                href="/imoveis?purpose=2"
-              >
-                LANÇAMENTOS
-              </Link>
-            </Flex>
+          <Flex justifyContent={isMobile ? 'center' : 'space-between'}>
+            {
+                !isMobile && (
+                  <>
+                    <Flex>
+                      <Link
+                        px="10px"
+                        cursor="pointer"
+                        _hover={{
+                          textDecoration: 'underline',
+                        }}
+                        href="/imoveis?purpose=0"
+                      >
+                        COMPRAR
+                      </Link>
+                      <Box>
+                        |
+                      </Box>
+                      <Link
+                        px="10px"
+                        cursor="pointer"
+                        _hover={{
+                          textDecoration: 'underline',
+                        }}
+                        href="/imoveis?purpose=1"
+                      >
+                        ALUGAR
+                      </Link>
+                      <Box>
+                        |
+                      </Box>
+                      <Link
+                        px="10px"
+                        cursor="pointer"
+                        _hover={{
+                          textDecoration: 'underline',
+                        }}
+                        href="/imoveis?purpose=2"
+                      >
+                        LANÇAMENTOS
+                      </Link>
+                    </Flex>
+
+                  </>
+                )
+}
             <Flex>
               <Link
                 cursor="pointer"
@@ -101,10 +111,10 @@ export const Header: React.FC<any> = () => {
           </Flex>
         </Container>
       </Box>
-      <Flex width="100%" justifyItems="center" alignItems="center" py="30px">
+      <Flex width="100%" justifyItems="center" alignItems="center" p="30px">
         <Box margin="auto" justifyContent="center" textAlign="center">
           <Link href="/">
-            <Image src="/logo.png" width="346px" />
+            <Image src="/logo.png" maxWidth="100%" width="346px" />
           </Link>
 
           <Box>
@@ -114,8 +124,60 @@ export const Header: React.FC<any> = () => {
       </Flex>
       <Box>
         <Container>
-          <Flex bg="gray.600" width="100%" padding="0 0 0 20px" justifyContent="space-between">
-            <Flex>
+          {
+            isMobile && (
+              <Flex
+                bg="gray.600"
+                p="20px"
+                justifyContent="space-between"
+                alignItems="center"
+                color="white"
+                onClick={() => setOpenMenu(true)}
+              >
+                MENU
+                {' '}
+                <Icon as={FiMenu} fontSize="20px" />
+              </Flex>
+            )
+          }
+
+          <Flex
+            bg="gray.600"
+            width="100%"
+            padding={isMobile ? '20px' : '0 0 0 20px'}
+            justifyContent={isMobile ? 'flex-start' : 'space-between'}
+            style={
+              isMobile ? {
+                position: 'fixed',
+                zIndex: 10,
+                left: openMenu ? '0' : '-100%',
+                top: 0,
+                width: '100%',
+                height: '100%',
+                flexDirection: 'column',
+              } : {}
+            }
+          >
+
+            <Flex
+              px="20px"
+              py="10px"
+              color="#FFFFFF"
+              position="relative"
+              _hover={{
+                bg: 'green.500',
+              }}
+              mb="30px"
+              alignItems="center"
+              justifyContent="space-between"
+              onClick={() => setOpenMenu(false)}
+            >
+              FECHAR MENU
+
+              <Icon as={FiX} fontSize="20px" />
+            </Flex>
+
+            <Flex flexDirection={isMobile ? 'column' : 'row'}>
               {menu.map((item) => (
                 <Link
                   key={item.id + item.link + item.label}
@@ -132,7 +194,7 @@ export const Header: React.FC<any> = () => {
 
                   {
                   (item.link === asPath || (item.link === '/imoveis' && asPath.includes(item.link))) && (
-                    <Box bg="green.500" height="5px" borderRadius="5px" width="100%" position="absolute" left="0" bottom="-2px" />
+                    <Box bg="green.500" height={isMobile ? '100%' : '5px'} borderRadius="5px" width={isMobile ? '10px' : '100%'} position="absolute" left="0" bottom={isMobile ? '0' : '-2px'} />
                   )
                 }
                 </Link>
@@ -140,7 +202,7 @@ export const Header: React.FC<any> = () => {
             </Flex>
 
             <Link
-              px="40px"
+              px={isMobile ? '20px' : '40px'}
               py="10px"
               color="#FFFFFF"
               bg="orange.700"

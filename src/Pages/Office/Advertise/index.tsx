@@ -3,6 +3,7 @@ import { Container } from '@src/Components/Container'
 import { DashboardOffice } from '@src/Components/DashboardOffice'
 import { Loader } from '@src/Components/Loader'
 import { useLoadingContext } from '@src/Contexts/Loading.context'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 import { useMyInformations } from '@src/Contexts/MyInformations.context'
 import { api, urls } from '@src/Services/Api'
 import { formatter } from '@src/Utils/NumberFormat'
@@ -37,6 +38,8 @@ export const AdvertiseOffice: React.FC<any> = () => {
     searchAdvertise()
   }, [])
 
+  const { isMobile } = useMobileContext()
+
   if (loading) {
     return <Loader />
   }
@@ -65,7 +68,7 @@ export const AdvertiseOffice: React.FC<any> = () => {
           {
           advertises?.map((adv, index) => (
             <Grid
-              templateColumns="repeat(3, 1fr)"
+              templateColumns={`repeat(${isMobile ? '1' : '3'}, 1fr)`}
               gap="10px"
               width="100%"
               key={`${adv.id}-adv`}
@@ -95,7 +98,7 @@ export const AdvertiseOffice: React.FC<any> = () => {
                 { adv.phone ?? 'Não informado' }
               </GridItem>
               <GridItem
-                colSpan={3}
+                colSpan={isMobile ? 1 : 3}
               >
                 <strong>Observações:</strong>
                 <br />

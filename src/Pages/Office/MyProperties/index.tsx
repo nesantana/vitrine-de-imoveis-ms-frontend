@@ -6,6 +6,7 @@ import { DashboardOffice } from '@src/Components/DashboardOffice'
 import { Loader } from '@src/Components/Loader'
 import { Property } from '@src/Components/Property'
 import { useLoadingContext } from '@src/Contexts/Loading.context'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 import { useMyInformations } from '@src/Contexts/MyInformations.context'
 import { iProperty } from '@src/Interfaces'
 import { api, urls } from '@src/Services/Api'
@@ -44,6 +45,8 @@ export const MyProperties: React.FC<any> = () => {
     }
   }, [myInformations])
 
+  const { isMobile } = useMobileContext()
+
   return (
     <>
       <Head>
@@ -57,7 +60,7 @@ export const MyProperties: React.FC<any> = () => {
           {
           properties.length ? (
             <Masonry
-              breakpointCols={3}
+              breakpointCols={isMobile ? 1 : 3}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column"
             >

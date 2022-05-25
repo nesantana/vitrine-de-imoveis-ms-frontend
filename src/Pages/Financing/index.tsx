@@ -4,6 +4,7 @@ import {
 import { Container } from '@src/Components/Container'
 import { Dashboard } from '@src/Components/Dashboard'
 import { useAlertContext } from '@src/Contexts/Alert.context'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 import { api, urls } from '@src/Services/Api'
 import axios from 'axios'
 import Head from 'next/head'
@@ -134,6 +135,8 @@ export const Financing = () => {
     searchStates()
   }, [])
 
+  const { isMobile } = useMobileContext()
+
   return (
     <>
       <Head>
@@ -152,10 +155,10 @@ export const Financing = () => {
             Escolha um banco e faça a sua simulação:
           </Box>
 
-          <Flex justifyContent="center">
+          <Flex justifyContent="center" flexWrap="wrap">
             {
             items.map((item) => (
-              <Link href={item.link} key={item.link} target="_blank">
+              <Link href={item.link} key={item.link} target="_blank" mb="30px">
                 <Box
                   p="2px"
                   bg="gray.100"
@@ -191,12 +194,12 @@ export const Financing = () => {
               shadow="md"
             >
               <Grid
-                templateColumns="repeat(2, 1fr)"
-                gap="20px 30px"
+                templateColumns={`repeat(${isMobile ? '1' : '2'}, 1fr)`}
+                gap={isMobile ? '30px' : '20px 30px'}
                 width="100%"
               >
                 <GridItem
-                  colSpan={2}
+                  colSpan={isMobile ? 1 : 2}
                 >
                   <Box fontSize="18px" fontWeight="500">
                     Solicitar consultoria
@@ -443,7 +446,7 @@ export const Financing = () => {
                   />
                 </GridItem>
                 <GridItem
-                  colSpan={2}
+                  colSpan={isMobile ? 1 : 2}
                 >
                   <Box>
                     <RadioGroup defaultValue="2" onChange={setTypeHouse} value={typeHouse}>

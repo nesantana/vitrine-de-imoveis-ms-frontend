@@ -5,6 +5,7 @@ import { DashboardOffice } from '@src/Components/DashboardOffice'
 import { Loader } from '@src/Components/Loader'
 import { useAlertContext } from '@src/Contexts/Alert.context'
 import { useLoadingContext } from '@src/Contexts/Loading.context'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 import { useMyInformations } from '@src/Contexts/MyInformations.context'
 import { api, urls } from '@src/Services/Api'
 import { isEmpty } from 'lodash'
@@ -83,6 +84,8 @@ export const DueDate: React.FC<any> = () => {
     }
   }
 
+  const { isMobile } = useMobileContext()
+
   if (loading) {
     return <Loader />
   }
@@ -94,6 +97,7 @@ export const DueDate: React.FC<any> = () => {
       </Box>
     )
   }
+
   return (
     <>
       <Head>
@@ -103,34 +107,36 @@ export const DueDate: React.FC<any> = () => {
         <meta name="description" content="Vencimentos | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet." />
       </Head>
       <DashboardOffice>
-        <Grid
-          templateColumns="repeat(3, 1fr)"
-          gap="10px"
-          width="100%"
-          bg="gray.100"
-          borderRadius="5px"
-          padding="20px"
-        >
-          <GridItem
-            colSpan={1}
+        { !isMobile && (
+          <Grid
+            templateColumns={`repeat(${isMobile ? '1' : '3'}, 1fr)`}
+            gap="10px"
+            width="100%"
+            bg="gray.100"
+            borderRadius="5px"
+            padding="20px"
           >
-            <strong>Nome:</strong>
-          </GridItem>
-          <GridItem
-            colSpan={1}
-          >
-            <strong>E-mail:</strong>
-          </GridItem>
-          <GridItem
-            colSpan={1}
-          >
-            <strong>Ações:</strong>
-          </GridItem>
-        </Grid>
+            <GridItem
+              colSpan={1}
+            >
+              <strong>Nome:</strong>
+            </GridItem>
+            <GridItem
+              colSpan={1}
+            >
+              <strong>E-mail:</strong>
+            </GridItem>
+            <GridItem
+              colSpan={1}
+            >
+              <strong>Ações:</strong>
+            </GridItem>
+          </Grid>
+        ) }
         {
           dueDates?.map((due, index) => (
             <Grid
-              templateColumns="repeat(3, 1fr)"
+              templateColumns={`repeat(${isMobile ? '1' : '3'}, 1fr)`}
               gap="10px"
               width="100%"
               key={`${due.id}duedate`}
@@ -141,16 +147,22 @@ export const DueDate: React.FC<any> = () => {
               <GridItem
                 colSpan={1}
               >
+                <strong>Nome:</strong>
+                <br />
                 {due.name}
               </GridItem>
               <GridItem
                 colSpan={1}
               >
+                <strong>E-mail:</strong>
+                <br />
                 {due.email ?? 'Não informado'}
               </GridItem>
               <GridItem
                 colSpan={1}
               >
+                <strong>Ações:</strong>
+                <br />
                 <Flex>
                   {Number(due.access) ? (
                     <Tooltip label="Remover Acesso!" hasArrow placement="right">

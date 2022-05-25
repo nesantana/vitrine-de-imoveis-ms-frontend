@@ -4,8 +4,9 @@ import {
   Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Grid, GridItem, Icon, Image, Link, Tooltip,
 } from '@chakra-ui/react'
 import { useFavoritesContext } from '@src/Contexts/Favorite.context'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 import { iFavorite } from '@src/Interfaces'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import {
   FaEye, FaStar, FaTrash, FaWhatsapp,
 } from 'react-icons/fa'
@@ -30,13 +31,32 @@ export const Dashboard: React.FC<iDashboard> = ({
   const {
     favorites, removeFavorite, openFavorite, setOpenFavorite,
   } = useFavoritesContext()
+
+  const {
+    setIsMobile, isMobile,
+  } = useMobileContext()
+
+  const verifyMobile = () => {
+    const { innerWidth: width } = window
+
+    const resolutionMobile = width <= 1200
+
+    setIsMobile(resolutionMobile)
+  }
+
+  useEffect(() => {
+    verifyMobile()
+    window.addEventListener('resize', verifyMobile)
+    return () => window.removeEventListener('resize', verifyMobile)
+  }, [])
+
   return (
     <>
-      <Header />
-      <Banner title={title} />
+      <Header isMobile={isMobile} />
+      <Banner title={title} isMobile={isMobile} />
 
       {
-        bannerHeader && (
+        (bannerHeader && !isMobile) && (
         <Box mt="30px" mb="30px">
           <Flex justifyContent="center">
             <Image src="/banners/grande-header.png" mr="30px" />
@@ -48,7 +68,7 @@ export const Dashboard: React.FC<iDashboard> = ({
 
       {!!breadcrumb.length && (
         <Container>
-          <Breadcrumb pt={bannerHeader ? '0' : '30px'} pb="30px" textAlign={breadcrumbCerter ? 'center' : 'initial'}>
+          <Breadcrumb pt={bannerHeader && !isMobile ? '0' : '30px'} pb="30px" textAlign={breadcrumbCerter ? 'center' : 'initial'}>
             {breadcrumb.map((bread, index) => (
               <BreadcrumbItem key={bread.label + bread.href + index} color="gray.500">
                 <BreadcrumbLink as={Link} textTransform="uppercase" href={bread.href} color={bread.active && 'green'}>
@@ -63,7 +83,7 @@ export const Dashboard: React.FC<iDashboard> = ({
       { children }
 
       {
-        bannerFooter && (
+        (bannerFooter && !isMobile) && (
         <Box py="30px">
           <Flex justifyContent="center">
             <Image src="/banners/grande-final.png" />
@@ -72,11 +92,11 @@ export const Dashboard: React.FC<iDashboard> = ({
         )
       }
 
-      <Box bg="gray.700" py="60px" mt={bannerFooter ? '0' : '30px'}>
+      <Box bg="gray.700" py="60px" mt={bannerFooter && !isMobile ? '0' : '30px'}>
         <Container>
           <Grid
-            templateColumns="repeat(4, 1fr)"
-            gap={3}
+            templateColumns={`repeat(${isMobile ? '1' : '4'}, 1fr)`}
+            gap={30}
             width="100%"
           >
             <GridItem colSpan={3}>
@@ -105,7 +125,7 @@ export const Dashboard: React.FC<iDashboard> = ({
                 className="fb-page"
                 data-href="https://www.facebook.com/vitrinedeimoveisms"
                 data-tabs="timeline"
-                data-width="330"
+                data-width="100%"
                 data-height="400"
                 data-small-header="false"
                 data-adapt-container-width="true"

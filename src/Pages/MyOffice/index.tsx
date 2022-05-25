@@ -2,6 +2,7 @@ import {
   Box, Button, Container, Flex, Grid, GridItem, Icon, Image, Link,
 } from '@chakra-ui/react'
 import { Dashboard } from '@src/Components/Dashboard'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 import Head from 'next/head'
 import React from 'react'
 import { FcHome, FcSmartphoneTablet, FcStatistics } from 'react-icons/fc'
@@ -20,6 +21,8 @@ export const MyOffice: React.FC<any> = () => {
       active: true,
     },
   ]
+
+  const { isMobile } = useMobileContext()
 
   return (
     <>
@@ -53,7 +56,7 @@ export const MyOffice: React.FC<any> = () => {
           <Box mb="60px">
 
             <Grid
-              templateColumns="repeat(3, 1fr)"
+              templateColumns={`repeat(${isMobile ? '1' : '3'}, 1fr)`}
               gap={5}
               width="100%"
               textAlign="center"
@@ -133,12 +136,12 @@ export const MyOffice: React.FC<any> = () => {
 
           <Box shadow="lg" p="20px" borderRadius="5px" mt="30px" bg="#f8f8f8">
             <Grid
-              templateColumns="repeat(5, 1fr)"
+              templateColumns={`repeat(${isMobile ? '1' : '5'}, 1fr)`}
               gap={5}
               width="100%"
               alignItems="center"
             >
-              <GridItem colSpan={3}>
+              <GridItem colSpan={isMobile ? 1 : 3} textAlign={isMobile ? 'center' : 'left'}>
                 <Box fontWeight="bold" mb="10px" fontSize="20px" color="green.500">
                   Assinatura mensal
                 </Box>
@@ -166,7 +169,7 @@ export const MyOffice: React.FC<any> = () => {
                 </Link>
               </GridItem>
 
-              <GridItem colSpan={2}>
+              <GridItem colSpan={isMobile ? 1 : 2}>
                 <Flex mb="10px" fontSize="107px" alignItems="flex-end" justifyContent="center" color="green.500">
                   <Box fontSize="20px" position="relative" top="-85px" right="5px">R$</Box>
                   97

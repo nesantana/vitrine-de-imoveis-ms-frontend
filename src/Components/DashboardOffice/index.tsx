@@ -6,15 +6,18 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
 import { FaHome, FaMapMarker, FaUser } from 'react-icons/fa'
-import { FiDollarSign, FiMessageCircle, FiXCircle } from 'react-icons/fi'
+import {
+  FiChevronsLeft, FiChevronsRight, FiDollarSign, FiMessageCircle, FiXCircle,
+} from 'react-icons/fi'
 import { MdSell } from 'react-icons/md'
 import { RiAdvertisementLine } from 'react-icons/ri'
 
 import { isEmpty } from 'lodash'
-import { destroyCookie } from 'nookies'
+import { destroyCookie, parseCookies, setCookie } from 'nookies'
 import { api } from '@src/Services/Api'
 import { apiFormData } from '@src/Services/ApiFormData'
 import { useAlertContext } from '@src/Contexts/Alert.context'
+import { useMobileContext } from '@src/Contexts/Mobile.context'
 
 const menuSimple = [
   {
@@ -66,6 +69,7 @@ const menuAdmin = [
 
 export const DashboardOffice: React.FC<any> = ({ children }) => {
   const [menu, setMenu] = useState(menuSimple)
+  const [openMenu, setOpenMenu] = useState<boolean>(false)
 
   const { searchMyInformations, myInformations, resetMyInformations } = useMyInformations()
   const { asPath, push: routerPush } = useRouter()
@@ -74,6 +78,22 @@ export const DashboardOffice: React.FC<any> = ({ children }) => {
     if (isEmpty(myInformations)) {
       searchMyInformations()
     }
+  }, [asPath])
+
+  const changeOpenMenu = async (bool: boolean) => {
+    await setCookie(null, 'openMenuOffice', JSON.stringify(bool))
+
+    setOpenMenu(bool)
+  }
+
+  const verifyOpenMenu = async () => {
+    const { openMenuOffice = 'true' } = await parseCookies(null)
+
+    changeOpenMenu(JSON.parse(openMenuOffice))
+  }
+
+  useEffect(() => {
+    verifyOpenMenu()
   }, [asPath])
 
   useEffect(() => {
@@ -110,57 +130,117 @@ export const DashboardOffice: React.FC<any> = ({ children }) => {
     }, 1000)
   }
 
+  const {
+    setIsMobile, isMobile,
+  } = useMobileContext()
+
+  const verifyMobile = async () => {
+    const { innerWidth: width } = window
+
+    const resolutionMobile = width <= 1200
+
+    const { openMenuOffice = 'true' } = await parseCookies(null)
+
+    setIsMobile(resolutionMobile)
+    changeOpenMenu(resolutionMobile ? false : JSON.parse(openMenuOffice))
+  }
+
+  useEffect(() => {
+    verifyMobile()
+    window.addEventListener('resize', verifyMobile)
+    return () => window.removeEventListener('resize', verifyMobile)
+  }, [])
+
   return (
     <>
       <Box
         position="absolute"
         top="0"
         left="0"
-        width="300px"
-        height="100vh"
+        width={openMenu ? '300px' : '55px'}
         bottom="0"
-        overflow="auto"
+        overflowX="hidden"
+        overflowY="auto"
+        height="100vh"
         bg="green.700"
+        zIndex="10"
       >
-        <Box padding="20px">
-          {
-            menu.map((item) => (
-              <Link
-                href={item.link}
-                key={item.id + item.label}
-              >
-                <Flex
-                  p="20px"
-                  borderBottomWidth="1px"
-                  borderBottomColor="#003F0B"
-                  color="white"
-                  alignItems="center"
-                  _hover={{
-                    bg: '#003F0B',
-                  }}
-                  cursor="pointer"
-                  bg={item.link === asPath ? '#003F0B' : 'green.700'}
-                >
-                  <Icon as={item.icon} mr="5px" />
-                  {item.label}
-                </Flex>
-              </Link>
-            ))
-          }
+        <Box padding={openMenu ? '20px' : '0'}>
           <Flex
-            p="20px"
-            borderBottomWidth="1px"
-            borderBottomColor="#003F0B"
-            color="white"
-            alignItems="center"
-            _hover={{
-              bg: '#003F0B',
-            }}
-            cursor="pointer"
-            onClick={signOut}
+            flexDirection="column"
+            justifyContent="space-between"
+            height={openMenu ? 'calc(100vh - 40px)' : '100vh'}
           >
-            <Icon as={FiXCircle} mr="5px" />
-            SAIR
+            <Box>
+              {
+                menu.map((item) => (
+                  <Link
+                    href={item.link}
+                    key={item.id + item.label}
+                  >
+                    <Flex
+                      p="20px"
+                      borderBottomWidth="1px"
+                      borderBottomColor="#003F0B"
+                      color="white"
+                      alignItems="center"
+                      _hover={{
+                        bg: '#003F0B',
+                      }}
+                      cursor="pointer"
+                      bg={item.link === asPath ? '#003F0B' : 'green.700'}
+                      flexWrap="nowrap"
+                    >
+                      <Icon as={item.icon} mr="5px" />
+
+                      <Box whiteSpace="nowrap" opacity={openMenu ? '1' : '0'}>
+                        {item.label}
+                      </Box>
+                    </Flex>
+                  </Link>
+                ))
+              }
+              <Flex
+                p="20px"
+                borderBottomWidth="1px"
+                borderBottomColor="#003F0B"
+                color="white"
+                alignItems="center"
+                _hover={{
+                  bg: '#003F0B',
+                }}
+                cursor="pointer"
+                onClick={signOut}
+                flexWrap="nowrap"
+              >
+                <Icon as={FiXCircle} mr="5px" />
+
+                <Box whiteSpace="nowrap" opacity={openMenu ? '1' : '0'}>
+                  SAIR
+                </Box>
+              </Flex>
+            </Box>
+
+            <Flex
+              p="20px"
+              color="white"
+              alignItems="center"
+              cursor="pointer"
+              onClick={() => changeOpenMenu(!openMenu)}
+              flexWrap="nowrap"
+            >
+              {
+                openMenu ? (
+                  <Icon as={FiChevronsLeft} mr="5px" />
+                ) : (
+                  <Icon as={FiChevronsRight} mr="5px" />
+                )
+              }
+
+              <Box whiteSpace="nowrap" opacity={openMenu ? '1' : '0'}>
+                FECHAR
+              </Box>
+            </Flex>
           </Flex>
         </Box>
       </Box>
@@ -168,13 +248,13 @@ export const DashboardOffice: React.FC<any> = ({ children }) => {
         position="absolute"
         top="0"
         right="0"
-        left="300px"
+        left={openMenu && !isMobile ? '300px' : '55px'}
         height="100vh"
         bottom="0"
-        p="30px"
+        p={isMobile ? '20px' : '30px'}
         overflow="auto"
       >
-        <Container maxWidth="1100px" width="100%">
+        <Container maxWidth="1100px" width="100%" p="0">
           { children }
         </Container>
       </Box>
