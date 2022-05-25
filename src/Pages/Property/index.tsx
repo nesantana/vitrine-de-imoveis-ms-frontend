@@ -223,7 +223,7 @@ export const Property: React.FC<any> = () => {
               </Flex>
 
               <Box mt="20px">Características:</Box>
-              <Flex>
+              <Flex flexWrap="wrap">
                 {
                 property?.characteristics.map((char: string) => (
                   <Badge key={char} mr="10px" mt="10px" p="3px 10px" colorScheme="green" color="white" fontSize="14px" borderRadius="5px">
