@@ -158,24 +158,27 @@ export const Header: React.FC<any> = ({ isMobile }) => {
               } : {}
             }
           >
+            {
+              isMobile && (
+              <Flex
+                px="20px"
+                py="10px"
+                color="#FFFFFF"
+                position="relative"
+                _hover={{
+                  bg: 'green.500',
+                }}
+                mb="30px"
+                alignItems="center"
+                justifyContent="space-between"
+                onClick={() => setOpenMenu(false)}
+              >
+                FECHAR MENU
 
-            <Flex
-              px="20px"
-              py="10px"
-              color="#FFFFFF"
-              position="relative"
-              _hover={{
-                bg: 'green.500',
-              }}
-              mb="30px"
-              alignItems="center"
-              justifyContent="space-between"
-              onClick={() => setOpenMenu(false)}
-            >
-              FECHAR MENU
-
-              <Icon as={FiX} fontSize="20px" />
-            </Flex>
+                <Icon as={FiX} fontSize="20px" />
+              </Flex>
+              )
+          }
 
             <Flex flexDirection={isMobile ? 'column' : 'row'}>
               {menu.map((item) => (

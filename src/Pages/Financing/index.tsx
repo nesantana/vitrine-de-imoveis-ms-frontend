@@ -181,8 +181,7 @@ export const Financing = () => {
           </Box>
 
           <Box fontSize="14px" mb="30px" textAlign="center">
-            Preencha o formulário a seguir, dentro de 12h estaremos
-            entrando em contato para poder te ajudar!
+            Preencha o formulário a seguir, dentro de 12h entraremos em contato!
           </Box>
 
           <Flex justifyContent="center">
