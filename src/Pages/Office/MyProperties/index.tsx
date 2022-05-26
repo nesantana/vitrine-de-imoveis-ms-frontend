@@ -57,38 +57,29 @@ export const MyProperties: React.FC<any> = () => {
       </Head>
       <DashboardOffice>
         <Container>
-          {
-          properties.length ? (
-            <Masonry
-              breakpointCols={isMobile ? 1 : 3}
-              className="my-masonry-grid"
-              columnClassName="my-masonry-grid_column"
-            >
-              <Link href="/escritorio/imoveis/novo/">
-                <Flex width="100%" height="430px" bg="gray.200" borderRadius="5px" mb="15px" shadow="sm" flexDirection="column" alignItems="center" justifyContent="center">
-                  <Icon as={FiPlusSquare} fontSize="100px" strokeWidth={1} color="gray.500" />
+          <Masonry
+            breakpointCols={isMobile ? 1 : 3}
+            className="my-masonry-grid"
+            columnClassName="my-masonry-grid_column"
+          >
+            <Link href="/escritorio/imoveis/novo/">
+              <Flex width="100%" height="430px" bg="gray.200" borderRadius="5px" mb="15px" shadow="sm" flexDirection="column" alignItems="center" justifyContent="center">
+                <Icon as={FiPlusSquare} fontSize="100px" strokeWidth={1} color="gray.500" />
 
-                  <Box color="gray.700">
-                    Criar novo imóvel
-                  </Box>
-                </Flex>
-              </Link>
-              {
-              properties?.map((property: any) => (
+                <Box color="gray.700">
+                  Criar novo imóvel
+                </Box>
+              </Flex>
+            </Link>
+            {
+              !!properties.length
+              && properties?.map((property: any) => (
                 <Box key={property.id} mb="15px">
                   <Property property={property} small hasEdit />
                 </Box>
               ))
             }
-            </Masonry>
-          ) : (
-            <Box>
-              {
-                loading ? (<Loader />) : 'Não encontramos imóveis com o filtro selecionado.'
-              }
-            </Box>
-          )
-        }
+          </Masonry>
         </Container>
       </DashboardOffice>
     </>

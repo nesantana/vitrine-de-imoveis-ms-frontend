@@ -123,11 +123,8 @@ export const DashboardOffice: React.FC<any> = ({ children }) => {
       api.removeToken()
       apiFormData.removeToken()
       resetMyInformations()
-    }, 0)
-
-    setTimeout(() => {
       routerPush('/login')
-    }, 1000)
+    }, 2000)
   }
 
   const {
