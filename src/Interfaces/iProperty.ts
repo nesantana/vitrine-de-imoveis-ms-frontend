@@ -14,6 +14,9 @@ export interface iProperty {
   purpose: string
   title: string
   type: string
+  suite: string
+  youtube: string
+  iptu: string
   updatedAt: string
   value: string
   views: string

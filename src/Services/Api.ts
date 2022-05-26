@@ -62,7 +62,8 @@ const urls = {
     login: '/users/login/',
     findAll: '/users/',
     findMe: '/users/find-me/',
-    findUsername: '/users/find-username',
+    findUsername: '/users/find-username/',
+    findId: '/users/find-id/',
   },
   properties: {
     create: '/properties/create/',

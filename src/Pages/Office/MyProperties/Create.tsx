@@ -10,7 +10,7 @@ import { DashboardOffice } from '@src/Components/DashboardOffice'
 import { useAlertContext } from '@src/Contexts/Alert.context'
 import React, { useEffect, useMemo, useState } from 'react'
 import {
-  FaArrowsAlt, FaBath, FaBed, FaDoorOpen,
+  FaArrowsAlt, FaBath, FaBed, FaDoorOpen, FaYoutube,
 } from 'react-icons/fa'
 import { FiDollarSign, FiPlusSquare } from 'react-icons/fi'
 import NumberFormatInput from 'react-number-format'
@@ -29,6 +29,8 @@ import ScrollContainer from 'react-indiana-drag-scroll'
 import { apiFormData } from '@src/Services/ApiFormData'
 import Head from 'next/head'
 import { useMobileContext } from '@src/Contexts/Mobile.context'
+import { TextEditor } from '@src/Components/TextEditor'
+import { HiOutlineReceiptTax } from 'react-icons/hi'
 
 const libraries: any = ['places']
 
@@ -45,6 +47,9 @@ export const Create: React.FC<any> = () => {
   const [area, setArea] = useState<string>('')
   const [areaBuild, setAreaBuild] = useState<string>('')
   const [bedrooms, setBedrooms] = useState<string>('')
+  const [suite, setSuite] = useState<string>('')
+  const [youtube, setYoutube] = useState<string>('')
+  const [iptu, setIptu] = useState<string>('')
   const [bathrooms, setBathrooms] = useState<string>('')
 
   const { setAlert } = useAlertContext()
@@ -121,6 +126,9 @@ export const Create: React.FC<any> = () => {
       setBathrooms(data.bathrooms)
       setBedrooms(data.bedrooms)
       setValue(data.value)
+      setIptu(data.iptu)
+      setYoutube(data.youtube)
+      setSuite(data.suite)
       setPurpose(data.purpose)
       setTitle(data.title)
       setType(data.type)
@@ -165,6 +173,9 @@ export const Create: React.FC<any> = () => {
       type,
       area_build: areaBuild,
       bedrooms,
+      youtube,
+      iptu,
+      suite,
       bathrooms,
       address,
       coordinates: JSON.stringify(coordinates),
@@ -187,7 +198,7 @@ export const Create: React.FC<any> = () => {
         message: `Imóvel ${id ? 'Editado' : 'Cadastrado'} com Sucesso!`,
       })
 
-      router.push(`/escritorio/imoveis/${data.id}`)
+      router.push(`/escritorio/imoveis/${id}`)
     } catch (error: any) {
       setAlert({
         type: 'error',
@@ -505,6 +516,38 @@ export const Create: React.FC<any> = () => {
           <GridItem
             colSpan={isMobile ? 1 : 3}
           >
+            <FormLabel htmlFor="suite">
+              Suítes
+            </FormLabel>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents="none"
+                children={(
+                  <Icon
+                    as={FaBed}
+                    color="gray.700"
+                  />
+              )}
+              />
+              <Input
+                variant="outline"
+                placeholder="Suítes"
+                border="1px"
+                id="suite"
+                bg="white"
+                borderColor="gray.700"
+                borderRadius="5px"
+                onChange={({ target }) => setSuite(target.value)}
+                value={suite}
+                _placeholder={{
+                  color: 'gray.700',
+                }}
+              />
+            </InputGroup>
+          </GridItem>
+          <GridItem
+            colSpan={isMobile ? 1 : 3}
+          >
             <FormLabel htmlFor="bathrooms">
               Banheiros
             </FormLabel>
@@ -528,6 +571,70 @@ export const Create: React.FC<any> = () => {
                 borderRadius="5px"
                 onChange={({ target }) => setBathrooms(target.value)}
                 value={bathrooms}
+                _placeholder={{
+                  color: 'gray.700',
+                }}
+              />
+            </InputGroup>
+          </GridItem>
+          <GridItem
+            colSpan={isMobile ? 1 : 3}
+          >
+            <FormLabel htmlFor="iptu">
+              IPTU
+            </FormLabel>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents="none"
+                children={(
+                  <Icon
+                    as={HiOutlineReceiptTax}
+                    color="gray.700"
+                  />
+              )}
+              />
+              <Input
+                variant="outline"
+                placeholder="IPTU"
+                border="1px"
+                id="iptu"
+                bg="white"
+                borderColor="gray.700"
+                borderRadius="5px"
+                onChange={({ target }) => setIptu(target.value)}
+                value={iptu}
+                _placeholder={{
+                  color: 'gray.700',
+                }}
+              />
+            </InputGroup>
+          </GridItem>
+          <GridItem
+            colSpan={isMobile ? 1 : 6}
+          >
+            <FormLabel htmlFor="youtube">
+              YouTube
+            </FormLabel>
+            <InputGroup>
+              <InputLeftElement
+                pointerEvents="none"
+                children={(
+                  <Icon
+                    as={FaYoutube}
+                    color="gray.700"
+                  />
+              )}
+              />
+              <Input
+                variant="outline"
+                placeholder="YouTube"
+                border="1px"
+                id="youtube"
+                bg="white"
+                borderColor="gray.700"
+                borderRadius="5px"
+                onChange={({ target }) => setYoutube(target.value)}
+                value={youtube}
                 _placeholder={{
                   color: 'gray.700',
                 }}
@@ -561,7 +668,10 @@ export const Create: React.FC<any> = () => {
               Informações
             </FormLabel>
             <Box mb="30px">
-              <QuillNoSSRWrapper theme="snow" value={informations} onChange={(t) => setInformations(t)} />
+              <TextEditor
+                setState={(editor: any) => setInformations(editor.getHTML())}
+                state={informations}
+              />
             </Box>
 
             <FormLabel>

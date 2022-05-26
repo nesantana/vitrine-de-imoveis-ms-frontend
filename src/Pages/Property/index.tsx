@@ -24,6 +24,9 @@ import { useAlertContext } from '@src/Contexts/Alert.context'
 import Head from 'next/head'
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api'
 import { useMobileContext } from '@src/Contexts/Mobile.context'
+import { HiOutlineReceiptTax } from 'react-icons/hi'
+import { isEmpty } from 'lodash'
+import { Professional } from '@src/Components/Professional'
 
 const libraries: any = ['places']
 
@@ -40,6 +43,18 @@ export const Property: React.FC<any> = () => {
   const [message, setMessage] = useState<string>('')
   const [coordinates, setCoordinates] = useState<any>({ lat: null, lng: null })
   const [loadingSend, setLoadingSend] = useState<boolean>(false)
+  const [professional, setProfessional] = useState<any>({})
+
+  const searchProfessional = async (id: number) => {
+    try {
+      const { data } = await api.get(urls.users.findId, { id })
+
+      setProfessional(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const { setAlert } = useAlertContext()
 
   const { isLoaded } = useLoadScript({
@@ -71,6 +86,8 @@ export const Property: React.FC<any> = () => {
           active: true,
         },
       ])
+
+      searchProfessional(Number(data.id_professional))
 
       setTimeout(() => {
         setCoordinates(JSON.parse(data.coordinates))
@@ -190,29 +207,43 @@ export const Property: React.FC<any> = () => {
                   <Flex alignItems="center" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
                     <Icon as={FaArrowsAlt} color="gray.500" width="20px" mr="5px" />
                     <Box color="gray.500" fontSize="14px">
-                      { `${property.area} ` }
-                      m
+                      { property.area ? `${property.area} m` : 'N/I' }
                       <sup>2</sup>
                     </Box>
                   </Flex>
                   <Flex alignItems="center" fontSize="14px" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
                     <Icon as={FaDoorOpen} color="gray.500" width="20px" mr="5px" />
                     <Box color="gray.500">
-                      { `${property.area_build} ` }
-                      m
+                      { property.area_build ? `${property.area_build} m` : 'N/I' }
                       <sup>2</sup>
                     </Box>
                   </Flex>
                   <Flex alignItems="center" fontSize="14px" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
                     <Icon as={FaBed} color="gray.500" width="20px" mr="5px" />
                     <Box color="gray.500">
-                      { `${property.bedrooms} quartos` }
+                      { property.bedrooms ? `${property.bedrooms} quartos` : 'N/I' }
+                    </Box>
+                  </Flex>
+                  <Flex alignItems="center" fontSize="14px" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
+                    <Icon as={FaBed} color="gray.500" width="20px" mr="5px" />
+                    {' '}
+                    +
+                    {' '}
+                    <Icon as={FaBath} color="gray.500" width="20px" mr="5px" />
+                    <Box color="gray.500">
+                      { property.suite ? `${property.suite} suítes` : 'N/I' }
                     </Box>
                   </Flex>
                   <Flex alignItems="center" fontSize="14px" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
                     <Icon as={FaBath} color="gray.500" width="20px" mr="5px" />
                     <Box color="gray.500">
-                      { `${property.bathrooms} banheiros` }
+                      { property.bathrooms ? `${property.bathrooms} banheiros` : 'N/I' }
+                    </Box>
+                  </Flex>
+                  <Flex alignItems="center" fontSize="14px" pr="30px" minWidth={isMobile ? '50%' : 'auto'}>
+                    <Icon as={HiOutlineReceiptTax} color="gray.500" width="20px" mr="5px" />
+                    <Box color="gray.500">
+                      { property.iptu ? `IPTU: ${property.iptu}` : 'IPTU: N/I' }
                     </Box>
                   </Flex>
                 </Flex>
@@ -232,6 +263,14 @@ export const Property: React.FC<any> = () => {
                 ))
               }
               </Flex>
+              {
+                !!property.youtube && (
+                  <Flex mt="20px" flexDirection="column" className="informations">
+                    <Box mb="10px">Vídeo:</Box>
+                    <iframe width="100%" height="450" src={`https://www.youtube.com/embed/${property.youtube.split('https://www.youtube.com/watch?v=')[1]}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                  </Flex>
+                )
+              }
               {
                 !!property.informations && (
                   <Flex mt="20px" flexDirection="column" className="informations">
@@ -258,6 +297,14 @@ export const Property: React.FC<any> = () => {
             <GridItem
               colSpan={isMobile ? 2 : 1}
             >
+              {
+                !isEmpty(professional) ? (
+                  <Box mb="30px">
+                    <Professional professional={professional} property={property} inProperty />
+                  </Box>
+                ) : <Loader />
+              }
+
               <Box bg="gray.100" p="20px" borderRadius="5px" shadow="lg" position="relative" pb="40px" width="100%">
                 <Box>
                   FALAR COM CORRETOR
@@ -340,7 +387,7 @@ export const Property: React.FC<any> = () => {
               </Box>
 
               {
-                isMobile && (
+                !isMobile && (
                 <Box mt="50px">
                   <Flex>
                     <Image src="/banners/medio-interno-imoveis.png" />

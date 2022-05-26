@@ -105,7 +105,7 @@ const GlobalStyle = createGlobalStyle`
     overflow: hidden;
   }
 
-  .informations {
+  .informations, .editor {
     ul, ol {
       padding-left: 20px;
     }
@@ -123,6 +123,36 @@ const GlobalStyle = createGlobalStyle`
   .open-favorites {
     left: 30px;
     transition: 0.5s ease-in-out;
+  }
+
+  h1 {
+    font-weight: 500;
+    font-size: 32px;
+  }
+
+  h2 {
+    font-weight: 500;
+    font-size: 28px;
+  }
+
+  h3 {
+    font-weight: 500;
+    font-size: 24px;
+  }
+
+  h4 {
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  h5 {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  h6 {
+    font-weight: 500;
+    font-size: 14px;
   }
 
   @media screen and (max-width: 1200px) {}
