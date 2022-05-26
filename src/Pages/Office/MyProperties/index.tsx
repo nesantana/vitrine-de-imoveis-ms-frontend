@@ -8,6 +8,7 @@ import { Property } from '@src/Components/Property'
 import { useLoadingContext } from '@src/Contexts/Loading.context'
 import { useMobileContext } from '@src/Contexts/Mobile.context'
 import { useMyInformations } from '@src/Contexts/MyInformations.context'
+import { useUtilsContext } from '@src/Contexts/Utils.context'
 import { iProperty } from '@src/Interfaces'
 import { api, urls } from '@src/Services/Api'
 import { isEmpty } from 'lodash'
@@ -37,6 +38,8 @@ export const MyProperties: React.FC<any> = () => {
     }
   }
 
+  const { searchUtils, purposes, types } = useUtilsContext()
+
   useEffect(() => {
     if (isEmpty(myInformations)) {
       searchMyInformations()
@@ -44,6 +47,10 @@ export const MyProperties: React.FC<any> = () => {
       searchProperties()
     }
   }, [myInformations])
+
+  if (!purposes.length || !types.length) {
+    searchUtils()
+  }
 
   const { isMobile } = useMobileContext()
 

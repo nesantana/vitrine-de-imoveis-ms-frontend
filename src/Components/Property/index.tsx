@@ -8,12 +8,11 @@ import {
   FaArrowsAlt, FaBath, FaBed, FaDoorOpen,
 } from 'react-icons/fa'
 import { FiImage, FiMapPin, FiStar } from 'react-icons/fi'
-import { setCookie, parseCookies } from 'nookies'
 import { useFavoritesContext } from '@src/Contexts/Favorite.context'
 import { type } from 'os'
 
 export const Property: React.FC<any> = ({ property, small = false, hasEdit = false }) => {
-  const { types = [], purposes = [], searchUtils } = useUtilsContext()
+  const { types = [], purposes = [] } = useUtilsContext()
   const { favorites, setFavorite, removeFavorite } = useFavoritesContext()
 
   const handleFavorite = async (e: MouseEvent) => {
@@ -33,13 +32,7 @@ export const Property: React.FC<any> = ({ property, small = false, hasEdit = fal
   }
 
   const hasFavorite = useMemo(() => !!favorites.find(({ id }) => id === property.id), [favorites])
-
-  useEffect(() => {
-    if (!type.length || !purposes.length) {
-      searchUtils()
-    }
-  }, [])
-
+  
   return (
     <Link
       href={hasEdit ? `/escritorio/imoveis/${property.id}` : `/imoveis/${property.id}`}
