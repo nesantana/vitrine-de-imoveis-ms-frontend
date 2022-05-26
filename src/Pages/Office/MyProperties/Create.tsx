@@ -121,31 +121,76 @@ export const Create: React.FC<any> = () => {
       setTimeout(() => {
         setAddress(data.address)
       }, 0)
-      setCoordinates(JSON.parse(data.coordinates))
-      setInformations(JSON.parse(data.informations))
-      setBathrooms(data.bathrooms)
-      setBedrooms(data.bedrooms)
-      setValue(data.value)
-      setIptu(data.iptu)
-      setYoutube(data.youtube)
-      setSuite(data.suite)
-      setPurpose(data.purpose)
-      setTitle(data.title)
-      setType(data.type)
-      setArea(data.area)
-      setAreaBuild(data.area_build)
-      setPhotos(data.photos ? data.photos.split(',') : [])
 
-      const chars: string[] = []
+      if (data.coordinates) {
+        setCoordinates(JSON.parse(data.coordinates))
+      }
 
-      data.characteristics.forEach((char: any, index: number) => {
-        const findChar = characteristics.find(({ value: valueChar }) => valueChar === char)
+      if (data.informations) {
+        setInformations(JSON.parse(data.informations))
+      }
 
-        chars.push(findChar?.id)
-      })
+      if (data.bathrooms) {
+        setBathrooms(data.bathrooms)
+      }
 
-      setSelectedChars(chars)
+      if (data.bedrooms) {
+        setBedrooms(data.bedrooms)
+      }
+
+      if (data.value) {
+        setValue(data.value)
+      }
+
+      if (data.iptu) {
+        setIptu(data.iptu)
+      }
+
+      if (data.youtube) {
+        setYoutube(data.youtube)
+      }
+
+      if (data.suite) {
+        setSuite(data.suite)
+      }
+
+      if (data.purpose) {
+        setPurpose(data.purpose)
+      }
+
+      if (data.title) {
+        setTitle(data.title)
+      }
+
+      if (data.type) {
+        setType(data.type)
+      }
+
+      if (data.area) {
+        setArea(data.area)
+      }
+
+      if (data.area_build) {
+        setAreaBuild(data.area_build)
+      }
+
+      if (data.photos) {
+        setPhotos(data.photos ? data.photos.split(',') : [])
+      }
+
+      if (data.characteristics.length) {
+        const chars: string[] = []
+
+        data.characteristics.forEach((char: any, index: number) => {
+          const findChar = characteristics.find(({ value: valueChar }) => valueChar === char)
+
+          chars.push(findChar?.id)
+        })
+
+        setSelectedChars(chars)
+      }
     } catch (error: any) {
+      console.error(error)
       setAlert({
         type: 'error',
         message: error?.response?.data?.error,

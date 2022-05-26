@@ -108,6 +108,14 @@ const GlobalStyle = createGlobalStyle`
   .informations, .editor {
     ul, ol {
       padding-left: 20px;
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+
+    p {
+      margin-bottom: 20px;
     }
   }
 
