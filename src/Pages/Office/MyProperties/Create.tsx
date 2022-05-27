@@ -243,7 +243,7 @@ export const Create: React.FC<any> = () => {
         message: `Imóvel ${id ? 'Editado' : 'Cadastrado'} com Sucesso!`,
       })
 
-      router.push(`/escritorio/imoveis/${id}`)
+      router.push(`/escritorio/imoveis/${data.id}`)
     } catch (error: any) {
       setAlert({
         type: 'error',
