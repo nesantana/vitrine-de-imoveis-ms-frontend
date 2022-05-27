@@ -199,7 +199,7 @@ export const Property: React.FC<any> = () => {
             >
               <Flex color="green.500" alignItems="flex-end" mb="20px">
                 <Box position="relative" top="-15px">R$</Box>
-                <Box fontSize="45px">{NumberFormat(property.value)}</Box>
+                <Box fontSize="45px">{property.value ? NumberFormat(property.value) : 'A combinar'}</Box>
               </Flex>
 
               <Flex flexDirection="column" p="20px" bg="gray.100" borderRadius="5px">
