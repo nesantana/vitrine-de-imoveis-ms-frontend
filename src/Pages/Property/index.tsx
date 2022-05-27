@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { Loader } from '@src/Components/Loader'
 import {
   Badge,
-  Box, Button, Flex, Grid, GridItem, Icon, Image, Input, Textarea,
+  Box, Button, Flex, Grid, GridItem, Icon, Image, Input, Link, Textarea,
 } from '@chakra-ui/react'
 import { Container } from '@src/Components/Container'
 import ScrollContainer from 'react-indiana-drag-scroll'
@@ -390,7 +390,9 @@ export const Property: React.FC<any> = () => {
                 !isMobile && (
                 <Box mt="50px">
                   <Flex>
-                    <Image src="/banners/medio-interno-imoveis.png" />
+                    <Link href="https://www.instagram.com/power_semijoias/" target="_blank">
+                      <Image src="/banners/medio-interno-imoveis.png" />
+                    </Link>
                   </Flex>
                 </Box>
                 )

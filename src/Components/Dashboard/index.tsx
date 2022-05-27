@@ -59,8 +59,8 @@ export const Dashboard: React.FC<iDashboard> = ({
         (bannerHeader && !isMobile) && (
         <Box mt="30px" mb="30px">
           <Flex justifyContent="center">
-            <Image src="/banners/grande-header.png" mr="30px" />
-            <Image src="/banners/pequeno-header.png" />
+            <Link href="https://api.whatsapp.com/send?phone=5567981513750&text=Ol%C3%A1,%20tenho%20uma%20ideia%20e%20quero%20tirar%20ela%20do%20papel!" target="_blank"><Image src="/banners/grande-header.png" mr="30px" /></Link>
+            <Link href="https://api.whatsapp.com/send?phone=5567981513750&text=Ol%C3%A1,%20quero%20anunciar%20no%20Vitrine%20de%20Im%C3%B3veis%20MS!" target="_blank"><Image src="/banners/pequeno-header.png" /></Link>
           </Flex>
         </Box>
         )
@@ -86,7 +86,9 @@ export const Dashboard: React.FC<iDashboard> = ({
         (bannerFooter && !isMobile) && (
         <Box py="30px">
           <Flex justifyContent="center">
-            <Image src="/banners/grande-final.png" />
+            <Link href="https://api.whatsapp.com/send?phone=5567981513750&text=Ol%C3%A1,%20quero%20anunciar%20no%20Vitrine%20de%20Im%C3%B3veis%20MS!" target="_blank">
+              <Image src="/banners/grande-final.png" />
+            </Link>
           </Flex>
         </Box>
         )

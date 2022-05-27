@@ -304,7 +304,9 @@ export const Properties: React.FC<any> = () => {
                 !isMobile && (
                   <Box mt="30px">
                     <Flex>
-                      <Image src="/banners/grande-busca-imoveis.png" />
+                      <Link href="https://www.instagram.com/power_semijoias/" target="_blank">
+                        <Image src="/banners/grande-busca-imoveis.png" />
+                      </Link>
                     </Flex>
                   </Box>
                 )
