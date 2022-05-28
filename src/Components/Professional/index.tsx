@@ -55,7 +55,7 @@ export const Professional: React.FC<any> = ({ professional, property, inProperty
         {
           professional.phone && (
           <Tooltip label="Clique e fale com o corretor" hasArrow placement="left">
-            <Link href={`https://api.whatsapp.com/send?phone=55${professional.phone}&text=Ol%C3%A1%20${professional.name},%20${inProperty ? `estou%20olhando%20o%20imóvel:%20${property.title}%20${process.env.NEXT_PUBLIC_MY_URL}/imoveis/${property.id}` : 'te%20encontrei'}%20atrav%C3%A9s%20do%20Vitrine%20de%20Im%C3%B3veis%20MS`} target="_blank">
+            <Link href={`https://api.whatsapp.com/send?phone=55${professional.phone}&text=Ol%C3%A1%20${professional.name},%20${inProperty ? `estou%20olhando%20o%20imóvel:%20${property.title}%20${process.env.NEXT_PUBLIC_MY_URL}/imoveis/${property.id}` : 'te%20encontrei'}%20atrav%C3%A9s%20do%20Vitrine%20de%20Im%C3%B3veis%20MS!`} target="_blank">
               <Flex alignItems="center" mb="10px">
                 <Icon as={FaWhatsapp} mr="5px" fontSize="15px" />
                 {' '}
