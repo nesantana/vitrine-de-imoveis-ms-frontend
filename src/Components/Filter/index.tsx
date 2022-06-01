@@ -1,9 +1,10 @@
 import {
   Badge,
   Box, Button, Flex, Icon, Input,
-  RangeSlider, RangeSliderFilledTrack,
-  RangeSliderThumb, RangeSliderTrack, Select,
+  InputGroup,
+  InputRightAddon, Select,
 } from '@chakra-ui/react'
+import { MaxNumber } from '@src/Utils/MaxNumber'
 import React, { useState } from 'react'
 import { FiX } from 'react-icons/fi'
 
@@ -133,31 +134,56 @@ export const Filter: React.FC<any> = ({
         <Box>
           Área total
         </Box>
-        <Flex color="gray.500">
-          { area.map((a: any, index: any) => (
-            <>
-              <Box key={`${a}${index}area`}>{a}</Box>
-              {index === 0 && (
-                <Box px="5px">
-                  até
-                </Box>
-              )}
-            </>
-          )) }
-          <Box ml="3px">
-            m
-            <sup>2</sup>
-          </Box>
-        </Flex>
       </Flex>
       <Box mt="10px">
-        <RangeSlider aria-label={['min', 'max']} colorScheme="green" max={999} value={area} onChange={(e) => setArea(e)}>
-          <RangeSliderTrack>
-            <RangeSliderFilledTrack />
-          </RangeSliderTrack>
-          <RangeSliderThumb index={0} />
-          <RangeSliderThumb index={1} />
-        </RangeSlider>
+        <Flex>
+          <InputGroup size="sm">
+            <Input
+              variant="outline"
+              placeholder="Min"
+              border="1px"
+              bg="white"
+              borderColor="gray.700"
+              borderRadius="5px"
+              onChange={({ target }) => setArea([MaxNumber(target.value), area[1]])}
+              value={area[0]}
+              _placeholder={{
+                color: 'gray.700',
+              }}
+            />
+            <InputRightAddon bg="green.500" borderWidth="1px" borderColor="green.500" color="white">
+              m
+              {' '}
+              <sup>2</sup>
+            </InputRightAddon>
+          </InputGroup>
+          <InputGroup
+            size="sm"
+            marginLeft="30px"
+          >
+            <Input
+              variant="outline"
+              placeholder="Max"
+              border="1px"
+              bg="white"
+              borderColor="gray.700"
+              borderRadius="5px"
+              type="number"
+              max="999"
+              onChange={({ target }) => setArea([area[0], MaxNumber(target.value)])}
+              maxLength={3}
+              value={area[1]}
+              _placeholder={{
+                color: 'gray.700',
+              }}
+            />
+            <InputRightAddon bg="green.500" borderWidth="1px" borderColor="green.500" color="white">
+              m
+              {' '}
+              <sup>2</sup>
+            </InputRightAddon>
+          </InputGroup>
+        </Flex>
       </Box>
     </Box>
 
@@ -166,31 +192,57 @@ export const Filter: React.FC<any> = ({
         <Box>
           Área Construída
         </Box>
-        <Flex color="gray.500">
-          { areaBuild.map((a: any, index: any) => (
-            <>
-              <Box key={`${a}${index}areaBuild`}>{a}</Box>
-              {index === 0 && (
-                <Box px="5px">
-                  até
-                </Box>
-              )}
-            </>
-          )) }
-          <Box ml="3px">
-            m
-            <sup>2</sup>
-          </Box>
-        </Flex>
       </Flex>
+
       <Box mt="10px">
-        <RangeSlider aria-label={['min', 'max']} colorScheme="green" max={500} value={areaBuild} onChange={(e) => setAreaBuild(e)}>
-          <RangeSliderTrack>
-            <RangeSliderFilledTrack />
-          </RangeSliderTrack>
-          <RangeSliderThumb index={0} />
-          <RangeSliderThumb index={1} />
-        </RangeSlider>
+        <Flex>
+          <InputGroup size="sm">
+            <Input
+              variant="outline"
+              placeholder="Min"
+              border="1px"
+              bg="white"
+              borderColor="gray.700"
+              borderRadius="5px"
+              onChange={({ target }) => setAreaBuild([MaxNumber(target.value), areaBuild[1]])}
+              value={areaBuild[0]}
+              _placeholder={{
+                color: 'gray.700',
+              }}
+            />
+            <InputRightAddon bg="green.500" borderWidth="1px" borderColor="green.500" color="white">
+              m
+              {' '}
+              <sup>2</sup>
+            </InputRightAddon>
+          </InputGroup>
+          <InputGroup
+            size="sm"
+            marginLeft="30px"
+          >
+            <Input
+              variant="outline"
+              placeholder="Max"
+              border="1px"
+              bg="white"
+              borderColor="gray.700"
+              borderRadius="5px"
+              type="number"
+              max="999"
+              onChange={({ target }) => setAreaBuild([areaBuild[0], MaxNumber(target.value)])}
+              maxLength={3}
+              value={areaBuild[1]}
+              _placeholder={{
+                color: 'gray.700',
+              }}
+            />
+            <InputRightAddon bg="green.500" borderWidth="1px" borderColor="green.500" color="white">
+              m
+              {' '}
+              <sup>2</sup>
+            </InputRightAddon>
+          </InputGroup>
+        </Flex>
       </Box>
     </Box>
 
@@ -199,27 +251,46 @@ export const Filter: React.FC<any> = ({
         <Box>
           Banheiros
         </Box>
-        <Flex color="gray.500">
-          { bathrooms.map((a: any, index: any) => (
-            <>
-              <Box key={`${a}bathrooms`}>{a}</Box>
-              {index === 0 && (
-                <Box px="5px">
-                  até
-                </Box>
-              )}
-            </>
-          )) }
-        </Flex>
       </Flex>
       <Box mt="10px">
-        <RangeSlider aria-label={['min', 'max']} colorScheme="green" max={9} value={bathrooms} onChange={(e) => setBathrooms(e)}>
-          <RangeSliderTrack>
-            <RangeSliderFilledTrack />
-          </RangeSliderTrack>
-          <RangeSliderThumb index={0} />
-          <RangeSliderThumb index={1} />
-        </RangeSlider>
+        <Flex>
+          <InputGroup size="sm">
+            <Input
+              variant="outline"
+              placeholder="Min"
+              border="1px"
+              bg="white"
+              borderColor="gray.700"
+              borderRadius="5px"
+              onChange={({ target }) => setBathrooms([MaxNumber(target.value, 9), bathrooms[1]])}
+              value={bathrooms[0]}
+              _placeholder={{
+                color: 'gray.700',
+              }}
+            />
+          </InputGroup>
+          <InputGroup
+            size="sm"
+            marginLeft="30px"
+          >
+            <Input
+              variant="outline"
+              placeholder="Max"
+              border="1px"
+              bg="white"
+              borderColor="gray.700"
+              borderRadius="5px"
+              type="number"
+              max="999"
+              onChange={({ target }) => setBathrooms([bathrooms[0], MaxNumber(target.value, 9)])}
+              maxLength={1}
+              value={bathrooms[1]}
+              _placeholder={{
+                color: 'gray.700',
+              }}
+            />
+          </InputGroup>
+        </Flex>
       </Box>
     </Box>
 
@@ -228,28 +299,45 @@ export const Filter: React.FC<any> = ({
         <Box>
           Quartos
         </Box>
-        <Flex color="gray.500">
-          { bedrooms.map((a: any, index: any) => (
-            <>
-              <Box key={`${a}bedrooms`}>{a}</Box>
-              {index === 0 && (
-                <Box px="5px">
-                  até
-                </Box>
-              )}
-            </>
-          )) }
-        </Flex>
       </Flex>
-      <Box mt="10px">
-        <RangeSlider aria-label={['min', 'max']} colorScheme="green" max={9} value={bedrooms} onChange={(e) => setBedrooms(e)}>
-          <RangeSliderTrack>
-            <RangeSliderFilledTrack />
-          </RangeSliderTrack>
-          <RangeSliderThumb index={0} />
-          <RangeSliderThumb index={1} />
-        </RangeSlider>
-      </Box>
+      <Flex>
+        <InputGroup size="sm">
+          <Input
+            variant="outline"
+            placeholder="Min"
+            border="1px"
+            bg="white"
+            borderColor="gray.700"
+            borderRadius="5px"
+            onChange={({ target }) => setBedrooms([MaxNumber(target.value, 9), bedrooms[1]])}
+            value={bedrooms[0]}
+            _placeholder={{
+              color: 'gray.700',
+            }}
+          />
+        </InputGroup>
+        <InputGroup
+          size="sm"
+          marginLeft="30px"
+        >
+          <Input
+            variant="outline"
+            placeholder="Max"
+            border="1px"
+            bg="white"
+            borderColor="gray.700"
+            borderRadius="5px"
+            type="number"
+            max="999"
+            onChange={({ target }) => setBedrooms([bedrooms[0], MaxNumber(target.value, 9)])}
+            maxLength={1}
+            value={bedrooms[1]}
+            _placeholder={{
+              color: 'gray.700',
+            }}
+          />
+        </InputGroup>
+      </Flex>
     </Box>
 
     <Box mt="30px">
@@ -258,23 +346,23 @@ export const Filter: React.FC<any> = ({
       </Box>
       <Box bg="white" p="5px 15px 15px" borderRadius="5px" mt="10px">
         {
-                    !loading && characteristics.map((char: any) => (
-                      <Badge
-                        key={char.id + char.value}
-                        mr="10px"
-                        mt="10px"
-                        p="3px 8px"
-                        bg={selectedChars.includes(char.id) ? 'green.500' : 'gray.500'}
-                        color="white"
-                        fontSize="14px"
-                        borderRadius="5px"
-                        cursor="pointer"
-                        onClick={() => toogleChars(char.id)}
-                      >
-                        { char.value }
-                      </Badge>
-                    ))
-                  }
+          !loading && characteristics.map((char: any) => (
+            <Badge
+              key={char.id + char.value}
+              mr="10px"
+              mt="10px"
+              p="3px 8px"
+              bg={selectedChars.includes(char.id) ? 'green.500' : 'gray.500'}
+              color="white"
+              fontSize="14px"
+              borderRadius="5px"
+              cursor="pointer"
+              onClick={() => toogleChars(char.id)}
+            >
+              { char.value }
+            </Badge>
+          ))
+        }
       </Box>
     </Box>
 
