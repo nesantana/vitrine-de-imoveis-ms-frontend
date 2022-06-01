@@ -141,6 +141,7 @@ export const Card: React.FC<any> = () => {
               >
                 <Icon as={FiMail} mr="5px" fontSize="15px" />
                 {' '}
+
                 {professional.email}
               </Flex>
             </Link>
