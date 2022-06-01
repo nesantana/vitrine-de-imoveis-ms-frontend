@@ -31,10 +31,10 @@ export const Properties: React.FC<any> = () => {
   const [address, setAddress] = useState<string>('')
   const [purpose, setPurpose] = useState<string>('')
   const [type, setType] = useState<string>('')
-  const [area, setArea] = useState<number[]>([10, 300])
-  const [areaBuild, setAreaBuild] = useState<number[]>([10, 90])
-  const [bedrooms, setBedrooms] = useState<number[]>([2, 8])
-  const [bathrooms, setBathrooms] = useState<number[]>([2, 8])
+  const [area, setArea] = useState<any[]>(['', ''])
+  const [areaBuild, setAreaBuild] = useState<any[]>(['', ''])
+  const [bedrooms, setBedrooms] = useState<any[]>(['', ''])
+  const [bathrooms, setBathrooms] = useState<any[]>(['', ''])
   const [selectedChars, setSelectedChars] = useState<any[]>([])
   const [characteristics, setCharacteristics] = useState<any[]>([])
 
@@ -195,19 +195,19 @@ export const Properties: React.FC<any> = () => {
       params.address = address
     }
 
-    if (area) {
+    if (area.some((item) => item !== 0 && item !== null && item !== '')) {
       params.area = `${area[0]},${area[1]}`
     }
 
-    if (areaBuild) {
+    if (areaBuild.some((item) => item !== 0 && item !== null && item !== '')) {
       params.areaBuild = `${areaBuild[0]},${areaBuild[1]}`
     }
 
-    if (bedrooms) {
+    if (bedrooms.some((item) => item !== 0 && item !== null && item !== '')) {
       params.bedrooms = `${bedrooms[0]},${bedrooms[1]}`
     }
 
-    if (bathrooms) {
+    if (bathrooms.some((item) => item !== 0 && item !== null && item !== '')) {
       params.bathrooms = `${bathrooms[0]},${bathrooms[1]}`
     }
 
