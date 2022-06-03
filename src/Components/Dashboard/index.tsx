@@ -13,7 +13,7 @@ import {
 import { FiImage, FiX } from 'react-icons/fi'
 import { Banner } from '../Banner'
 import { Container } from '../Container'
-import { Header } from '../Header'
+import { Header, menu } from '../Header'
 
 interface iDashboard {
   title?: string
@@ -97,50 +97,68 @@ export const Dashboard: React.FC<iDashboard> = ({
       <Box bg="gray.700" py="60px" mt={bannerFooter && !isMobile ? '0' : '30px'}>
         <Container>
           <Grid
-            templateColumns={`repeat(${isMobile ? '1' : '4'}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? '1' : '5'}, 1fr)`}
             gap={30}
             width="100%"
           >
-            <GridItem colSpan={3}>
+            <GridItem colSpan={2}>
               <Box color="white">
-                Corretor responsavel: Elias Camilo
-                <br />
-                CRECI: 5831 - MS
+                Escolha o imóvel ideal para você!
                 <br />
                 <br />
-
-                Telefone: (67) 9 8183-3112
-                <br />
-                E-mail: contato@negociosms.com.br
+                Vitrine de Imóveis, a melhor opção para você corretor/imobiliária.
                 <br />
                 <br />
-
-                "Somos uma empresa com foco em você cliente, com nossas parcerias
-                <br />
-                queremos lhe proporcionar um serviço especializado em captação e
-                <br />
-                escolha de imóveis, selecionamos apenas os melhores imóveis para você."
+                Todos os direitos reservados.
               </Box>
             </GridItem>
             <GridItem colSpan={1}>
-              <div
-                className="fb-page"
-                data-href="https://www.facebook.com/vitrinedeimoveisms"
-                data-tabs="timeline"
-                data-width="100%"
-                data-height="400"
-                data-small-header="false"
-                data-adapt-container-width="true"
-                data-hide-cover="false"
-                data-show-facepile="true"
-              >
-                <blockquote
-                  cite="https://www.facebook.com/vitrinedeimoveisms"
-                  className="fb-xfbml-parse-ignore"
+              <Box>
+                <Box
+                  fontSize="18px"
+                  color="#FFFFFF"
+                  px="20px"
+                  py="10px"
+                  mb="30px"
                 >
-                  <a href="https://www.facebook.com/vitrinedeimoveisms">Negócios MS - Seu site de imóveis</a>
-                </blockquote>
-              </div>
+                  MENU
+                </Box>
+                {menu.map((item) => (
+                  <Box
+                    key={item.id + item.link + item.label}
+                  >
+                    <Link
+                      px="20px"
+                      py="10px"
+                      color="#FFFFFF"
+                      href={item.link}
+                      position="relative"
+                      display="block"
+                      _hover={{
+                        bg: 'green.500',
+                      }}
+                    >
+                      {item.label}
+                    </Link>
+                  </Box>
+                ))}
+              </Box>
+            </GridItem>
+            <GridItem colSpan={2}>
+              <Flex justifyContent="flex-end">
+                <iframe
+                  src="https://snapwidget.com/embed/998458"
+                  className="snapwidget-widget"
+                  frameBorder="0"
+                  scrolling="no"
+                  style={{
+                    border: 'none',
+                    overflow: 'hidden',
+                    width: '400px',
+                    height: '400px',
+                  }}
+                />
+              </Flex>
             </GridItem>
           </Grid>
         </Container>

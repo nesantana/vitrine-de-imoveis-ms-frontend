@@ -9,30 +9,30 @@ import { FiMenu, FiX } from 'react-icons/fi'
 import { isEmpty } from 'lodash'
 import { Container } from '../Container'
 
-export const Header: React.FC<any> = ({ isMobile }) => {
-  const menu = [
-    {
-      id: 0,
-      label: 'INÍCIO',
-      link: '/',
-    },
-    {
-      id: 1,
-      label: 'IMÓVEIS',
-      link: '/imoveis',
-    },
-    {
-      id: 2,
-      label: 'FINANCIAMENTO',
-      link: '/financiamento',
-    },
-    {
-      id: 3,
-      label: 'ANUNCIE',
-      link: '/anuncie',
-    },
-  ]
+export const menu = [
+  {
+    id: 0,
+    label: 'INÍCIO',
+    link: '/',
+  },
+  {
+    id: 1,
+    label: 'IMÓVEIS',
+    link: '/imoveis',
+  },
+  {
+    id: 2,
+    label: 'FINANCIAMENTO',
+    link: '/financiamento',
+  },
+  {
+    id: 3,
+    label: 'ANUNCIE',
+    link: '/anuncie',
+  },
+]
 
+export const Header: React.FC<any> = ({ isMobile }) => {
   const { asPath } = useRouter()
   const { setFavorites } = useFavoritesContext()
 
