@@ -155,6 +155,13 @@ export const Property: React.FC<any> = () => {
           | Vitrine de Imóveis MS
         </title>
         <meta name="description" content={`${property.title} - A forma mais simples de ser visto na internet.`} />
+        <meta property="og:title" content={`${property.title} | Vitrine de Imóveis MS`} />
+        <meta
+          property="og:description"
+          content={`${property.title} - A forma mais simples de ser visto na internet.`}
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <Dashboard bannerHeader={false} title={property.title} breadcrumb={breadcrumb}>
         <Container>

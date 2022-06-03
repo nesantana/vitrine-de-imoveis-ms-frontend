@@ -64,6 +64,13 @@ export const Register: React.FC<any> = () => {
           Registre-se | Vitrine de Imóveis MS
         </title>
         <meta name="description" content="Registre-se - A forma mais simples de ser visto na internet." />
+        <meta property="og:title" content="Registre-se | Vitrine de Imóveis MS" />
+        <meta
+          property="og:description"
+          content="Registre-se | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet."
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <Dashboard title="Finalize seu cadastro" breadcrumb={breadcrumb} breadcrumbCerter>
         <Container maxWidth="700px" width="100%">

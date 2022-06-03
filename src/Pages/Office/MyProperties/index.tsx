@@ -61,6 +61,13 @@ export const MyProperties: React.FC<any> = () => {
           Meus Imóveis | Escritório | Vitrine de Imóveis MS
         </title>
         <meta name="description" content="Meus Imóveis | Escritório | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet." />
+        <meta property="og:title" content="Meus Imóveis | Vitrine de Imóveis MS" />
+        <meta
+          property="og:description"
+          content="Meus Imóveis | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet."
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <DashboardOffice>
         <Container>
