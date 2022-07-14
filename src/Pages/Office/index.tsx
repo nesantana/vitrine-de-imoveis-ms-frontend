@@ -134,7 +134,7 @@ export const Office: React.FC<any> = () => {
                   pagamento, seja seu e-mail cadastrado aqui.
                 </Box>
 
-                <Link href="http://pag.ae/7Yeg2QUYM" target="_blank">
+                <Link href="http://pag.ae/7YsKDfbm3" target="_blank">
                   <Button colorScheme="green">
                     Quero ter acesso a tudo!
                   </Button>
@@ -144,7 +144,7 @@ export const Office: React.FC<any> = () => {
               <GridItem colSpan={2}>
                 <Flex mb="10px" fontSize="107px" alignItems="flex-end" justifyContent="center" color="green.500">
                   <Box fontSize="20px" position="relative" top="-85px" right="5px">R$</Box>
-                  97
+                  37
                   <Box fontSize="20px" position="relative" top="-35px" left="-10px">,00</Box>
                 </Flex>
               </GridItem>

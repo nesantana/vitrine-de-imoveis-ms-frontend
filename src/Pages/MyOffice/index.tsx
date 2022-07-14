@@ -172,7 +172,7 @@ export const MyOffice: React.FC<any> = () => {
               <GridItem colSpan={isMobile ? 1 : 2}>
                 <Flex mb="10px" fontSize="107px" alignItems="flex-end" justifyContent="center" color="green.500">
                   <Box fontSize="20px" position="relative" top="-85px" right="5px">R$</Box>
-                  97
+                  37
                   <Box fontSize="20px" position="relative" top="-35px" left="-10px">,00</Box>
                 </Flex>
               </GridItem>
