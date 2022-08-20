@@ -71,6 +71,13 @@ export const Contacts: React.FC<any> = () => {
           Contatos | Vitrine de Imóveis MS
         </title>
         <meta name="description" content="Contatos | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet." />
+        <meta property="og:title" content="Contatos | Vitrine de Imóveis MS" />
+        <meta
+          property="og:description"
+          content="Contatos | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet."
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <DashboardOffice>
         <Box mb="30px">

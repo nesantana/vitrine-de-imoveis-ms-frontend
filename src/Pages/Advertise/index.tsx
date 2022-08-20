@@ -52,6 +52,13 @@ export const Advertise: React.FC<any> = () => {
           Anuncie aqui no Vitrine de Imóveis MS
         </title>
         <meta name="description" content="Anuncie aqui no Vitrine de Imóveis MS! - A forma mais simples de ser visto na internet." />
+        <meta property="og:title" content="Anuncie aqui no Vitrine de Imóveis MS" />
+        <meta
+          property="og:description"
+          content="Anuncie aqui no Vitrine de Imóveis MS! - A forma mais simples de ser visto na internet."
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <Dashboard title="Anuncie aqui!" bannerFooter={false} bannerHeader={false}>
         <Container textAlign="center">

@@ -300,6 +300,13 @@ export const Create: React.FC<any> = () => {
           Imóvel | Escritório | Vitrine de Imóveis MS
         </title>
         <meta name="description" content={`${id ? 'Editar' : 'Criar'} Imóveis | Escritório | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet.`} />
+        <meta property="og:title" content={`${id ? 'Editar' : 'Criar'} Imóvel | Escritório | Vitrine de Imóveis MS`} />
+        <meta
+          property="og:description"
+          content={`${id ? 'Editar' : 'Criar'} Imóveis | Escritório | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet.`}
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <DashboardOffice>
         <Box mb="30px">

@@ -11,6 +11,16 @@ export default class MyDocument extends Document {
     return (
       <Html translate="no">
         <Head>
+          <title>Vitrine de Imóveis MS</title>
+          <meta name="description" content="A forma mais simples de ser visto na internet." />
+          <meta property="og:title" content="Vitrine de Imóveis MS" />
+          <meta
+            property="og:description"
+            content="A forma mais simples de ser visto na internet."
+          />
+          <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+          <meta property="og:type" content="website" />
+
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap" rel="stylesheet" />
           <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ca992385d4fcc64" />

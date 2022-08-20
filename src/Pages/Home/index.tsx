@@ -45,6 +45,13 @@ export const Home: React.FC<any> = () => {
       <Head>
         <title>Vitrine de Imóveis MS</title>
         <meta name="description" content="A forma mais simples de ser visto na internet." />
+        <meta property="og:title" content="Vitrine de Imóveis MS" />
+        <meta
+          property="og:description"
+          content="Vitrine de Imóveis MS - A forma mais simples de ser visto na internet."
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <Dashboard>
         <Container>
