@@ -3,7 +3,6 @@ import {
   Box, Flex, Icon, Image, Link,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { parseCookies } from 'nookies'
 import { useFavoritesContext } from '@src/Contexts/Favorite.context'
 import { FiMenu, FiX } from 'react-icons/fi'
 import { isEmpty } from 'lodash'
@@ -39,10 +38,10 @@ export const Header: React.FC<any> = ({ isMobile }) => {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
 
   const searchFavorites = async () => {
-    const { favorites } = await parseCookies(null, 'favorites')
+    const favorites = localStorage.getItem('favorites')
 
     if (!isEmpty(favorites)) {
-      setFavorites(JSON.parse(favorites))
+      setFavorites(JSON.parse(favorites as any))
     }
   }
 

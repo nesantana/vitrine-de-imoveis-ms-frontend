@@ -47,6 +47,8 @@ module.exports = {
     'no-nested-ternary': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     'react/no-children-prop': 'off',
+    'no-console': 'off',
+    'react/no-danger': 'off',
     'jsx-a11y/iframe-has-title': 'off',
   },
 }
