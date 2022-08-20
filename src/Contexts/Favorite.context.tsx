@@ -1,5 +1,4 @@
 import { iFavorite } from '@src/Interfaces'
-import { setCookie } from 'nookies'
 import React, { useContext, createContext, useState } from 'react'
 
 interface iFavoriteContext {
@@ -25,14 +24,14 @@ export const FavoritesProvider: React.FC<any> = ({ children }) => {
       favorite,
     ]
 
-    await setCookie(null, 'favorites', JSON.stringify(newFavorites))
+    localStorage.setItem('favorites', JSON.stringify(newFavorites))
     setFavorites(newFavorites)
   }
 
   const removeFavorite = async (id: number) => {
     const newFavorites = favorites.filter((fav) => fav.id !== id)
 
-    await setCookie(null, 'favorites', JSON.stringify(newFavorites))
+    localStorage.setItem('favorites', JSON.stringify(newFavorites))
     setFavorites(newFavorites)
   }
 

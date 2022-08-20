@@ -7,7 +7,6 @@ import { useAlertContext } from '@src/Contexts/Alert.context'
 import { api, urls } from '@src/Services/Api'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { parseCookies, setCookie } from 'nookies'
 import { apiFormData } from '@src/Services/ApiFormData'
 
 export const Login: React.FC<any> = () => {
@@ -65,7 +64,7 @@ export const Login: React.FC<any> = () => {
         message: 'Login efetuado com sucesso...',
       })
 
-      await setCookie(null, 'token', data.token)
+      localStorage.setItem('token', data.token)
       api.setToken(data.token)
       apiFormData.setToken(data.token)
 
@@ -82,7 +81,7 @@ export const Login: React.FC<any> = () => {
 
   const verifyToken = async () => {
     try {
-      const { token } = await parseCookies()
+      const token = localStorage.getItem('token')
 
       if (token) {
         api.setToken(token)
@@ -230,7 +229,7 @@ export const Login: React.FC<any> = () => {
                 shadow="lg"
                 height="40px"
                 onClick={handleRegister}
-                isLoading={loadingLogin}
+                isLoading={loadingRegister}
                 disabled={!email}
               >
                 Criar conta

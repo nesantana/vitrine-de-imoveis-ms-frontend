@@ -32,7 +32,7 @@ export const Property: React.FC<any> = ({ property, small = false, hasEdit = fal
   }
 
   const hasFavorite = useMemo(() => !!favorites.find(({ id }) => id === property.id), [favorites])
-  
+
   return (
     <Link
       href={hasEdit ? `/escritorio/imoveis/${property.id}` : `/imoveis/${property.id}`}

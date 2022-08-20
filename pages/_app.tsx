@@ -6,7 +6,6 @@ import { LoadingProvider } from '@src/Contexts/Loading.context'
 import { AlertProvider } from '@src/Contexts/Alert.context'
 import { ContentAlerts } from '@src/Components/ContentAlerts'
 import { useEffect, useState } from 'react'
-import { parseCookies } from 'nookies'
 import { api } from '@src/Services/Api'
 import { Loader } from '@src/Components/Loader'
 import { MyInformationsProvider } from '@src/Contexts/MyInformations.context'
@@ -171,7 +170,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const verifyToken = async () => {
     setLoading(true)
     try {
-      const { token } = await parseCookies()
+      const token = localStorage.getItem('token')
 
       if (token) {
         api.setToken(token)

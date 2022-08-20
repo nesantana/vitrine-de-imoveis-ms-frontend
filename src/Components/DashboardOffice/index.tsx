@@ -13,7 +13,6 @@ import { MdSell } from 'react-icons/md'
 import { RiAdvertisementLine } from 'react-icons/ri'
 
 import { isEmpty } from 'lodash'
-import { destroyCookie, parseCookies, setCookie } from 'nookies'
 import { api } from '@src/Services/Api'
 import { apiFormData } from '@src/Services/ApiFormData'
 import { useAlertContext } from '@src/Contexts/Alert.context'
@@ -81,15 +80,15 @@ export const DashboardOffice: React.FC<any> = ({ children }) => {
   }, [asPath])
 
   const changeOpenMenu = async (bool: boolean) => {
-    await setCookie(null, 'openMenuOffice', JSON.stringify(bool))
+    localStorage.setItem('openMenuOffice', JSON.stringify(bool))
 
     setOpenMenu(bool)
   }
 
   const verifyOpenMenu = async () => {
-    const { openMenuOffice = 'true' } = await parseCookies(null)
+    const openMenuOffice = localStorage.getItem('openMenuOffice') ?? true
 
-    changeOpenMenu(JSON.parse(openMenuOffice))
+    changeOpenMenu(Boolean(openMenuOffice))
   }
 
   useEffect(() => {
@@ -117,7 +116,7 @@ export const DashboardOffice: React.FC<any> = ({ children }) => {
       message: 'Usuário deslogado, redirecionando...',
     })
 
-    await destroyCookie(null, 'token')
+    localStorage.removeItem('token')
 
     setTimeout(() => {
       api.removeToken()
@@ -136,10 +135,10 @@ export const DashboardOffice: React.FC<any> = ({ children }) => {
 
     const resolutionMobile = width <= 1200
 
-    const { openMenuOffice = 'true' } = await parseCookies(null)
+    const openMenuOffice = localStorage.getItem('openMenuOffice') ?? true
 
     setIsMobile(resolutionMobile)
-    changeOpenMenu(resolutionMobile ? false : JSON.parse(openMenuOffice))
+    changeOpenMenu(resolutionMobile ? false : Boolean(openMenuOffice))
   }
 
   useEffect(() => {

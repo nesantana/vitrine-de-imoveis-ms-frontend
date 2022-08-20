@@ -7,7 +7,7 @@ import { useAlertContext } from '@src/Contexts/Alert.context'
 import { api, urls } from '@src/Services/Api'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const Register: React.FC<any> = () => {
   const [name, setName] = useState<string>('')
@@ -56,6 +56,12 @@ export const Register: React.FC<any> = () => {
       })
     }
   }
+
+  useEffect(() => {
+    const { email: queryEmail } = router.query
+
+    setEmail(queryEmail as string)
+  }, [router.query])
 
   return (
     <>
