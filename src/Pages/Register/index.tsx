@@ -14,6 +14,10 @@ export const Register: React.FC<any> = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
+  //contas sociais
+  const [conta_i, setconta_i] = useState<string>('')
+  const [conta_f, setconta_f] = useState<string>('')
+  const [conta_y, setconta_y] = useState<string>('')
 
   const { setAlert } = useAlertContext()
 
@@ -39,6 +43,10 @@ export const Register: React.FC<any> = () => {
         email,
         password,
         confirm_password: confirmPassword,
+        //contas sociais
+        conta_i,
+        conta_f,
+        conta_y,
       })
 
       setAlert({
@@ -93,6 +101,19 @@ export const Register: React.FC<any> = () => {
             <Box mb="30px">
               <InputWithLabel label="Confirmação de Senha" setValue={setConfirmPassword} value={confirmPassword} />
             </Box>
+             //inserir instagram
+            <Box mb="30px">
+             <InputWithLabel label="Conta do Instagram" setValue={setconta_i} value={conta_i} />
+            </Box>
+             //inserir facebook
+            <Box mb="30px">
+             <InputWithLabel label="Conta do Facebook" setValue={setconta_f} value={conta_f} />
+            </Box>
+             //inserir youtube
+            <Box mb="30px">
+             <InputWithLabel label="Conta do Youtube" setValue={setconta_y} value={conta_y} />
+            </Box>
+
             <Flex
               justifyContent="center"
             >
