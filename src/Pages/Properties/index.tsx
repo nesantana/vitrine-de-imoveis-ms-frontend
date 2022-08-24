@@ -1,7 +1,6 @@
 import {
-  Badge,
-  Box, Button, Flex, Grid, GridItem, Icon, Image, Input, Link, RangeSlider,
-  RangeSliderFilledTrack, RangeSliderThumb, RangeSliderTrack, Select, Tooltip, useProps,
+  Box, Button, Flex, Grid,
+  GridItem, Icon, Image, Link,
 } from '@chakra-ui/react'
 import { Container } from '@src/Components/Container'
 import { Dashboard } from '@src/Components/Dashboard'
@@ -18,9 +17,8 @@ import { isEmpty } from 'lodash'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { FaWhatsapp } from 'react-icons/fa'
-import { FiMail, FiMapPin } from 'react-icons/fi'
-import { GiHummingbird } from 'react-icons/gi'
+import { AiOutlineUnorderedList } from 'react-icons/ai'
+import { BsFillGrid3X2GapFill } from 'react-icons/bs'
 import Masonry from 'react-masonry-css'
 
 export const Properties: React.FC<any> = () => {
@@ -46,6 +44,8 @@ export const Properties: React.FC<any> = () => {
   const { query, push: routerPush } = useRouter()
   const [page, setPage] = useState<number>(0)
   const [openFilter, setOpenFilter] = useState<boolean>(false)
+
+  const [view, setView] = useState<'list' | 'grid'>('list')
 
   const searchCharacteristics = async () => {
     setLoading(true)
@@ -249,6 +249,13 @@ export const Properties: React.FC<any> = () => {
           | Vitrine de Imóveis MS
         </title>
         <meta name="description" content="Veja aqui seus imóveis! - A forma mais simples de ser visto na internet." />
+        <meta property="og:title" content={`${query.id_professional ? professional.name ?? 'Imóveis' : 'Imóveis'} | Vitrine de Imóveis MS`} />
+        <meta
+          property="og:description"
+          content="Veja aqui seus imóveis! | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet."
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <Dashboard title={query.id_professional ? professional.name ?? 'Imóveis' : 'Imóveis'} breadcrumb={breadcrumb}>
         <Container>
@@ -329,20 +336,31 @@ export const Properties: React.FC<any> = () => {
                 )
               }
 
+              <Box mb="30px">
+                <Flex>
+                  <Flex width="40px" height="30px" justifyContent="center" bg={view === 'list' ? 'gray.500' : 'white'} borderRadius="5px" alignItems="center" cursor="pointer" onClick={() => setView('list')}>
+                    <Icon as={AiOutlineUnorderedList} fontSize="25px" color={view === 'list' ? 'white' : 'gray.500'} />
+                  </Flex>
+                  <Flex width="40px" height="30px" bg={view === 'list' ? 'white' : 'gray.500'} borderRadius="5px" justifyContent="center" alignItems="center" cursor="pointer" onClick={() => setView('grid')}>
+                    <Icon as={BsFillGrid3X2GapFill} fontSize="30px" color={view === 'list' ? 'gray.500' : 'white'} />
+                  </Flex>
+                </Flex>
+              </Box>
+
               {
               loading ? (
                 <Loader />
               ) : (
                 properties.length ? (
                   <Masonry
-                    breakpointCols={isMobile ? 1 : 3}
+                    breakpointCols={isMobile ? 1 : (view === 'list' ? 1 : 3)}
                     className="my-masonry-grid"
                     columnClassName="my-masonry-grid_column"
                   >
                     {
                     properties?.map((property: any) => (
                       <Box key={`${property.id}property`} mb={isMobile ? '30px' : '15px'}>
-                        <Property property={property} small />
+                        <Property property={property} small view={view} />
                       </Box>
                     ))
                   }

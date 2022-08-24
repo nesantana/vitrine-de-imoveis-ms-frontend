@@ -59,6 +59,13 @@ export const FinancingOffice: React.FC<any> = () => {
           Simulações de Financiamento | Vitrine de Imóveis MS
         </title>
         <meta name="description" content="Simulações de Financiamento | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet." />
+        <meta property="og:title" content="Simulações de Financiamento | Vitrine de Imóveis MS" />
+        <meta
+          property="og:description"
+          content="Simulações de Financiamento | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet."
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <DashboardOffice>
         <Container>

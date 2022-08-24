@@ -215,6 +215,13 @@ export const MyProfile: React.FC<any> = () => {
           Meu perfil | Vitrine de Imóveis MS
         </title>
         <meta name="description" content="Meu perfil | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet." />
+        <meta property="og:title" content="Meu perfil | Vitrine de Imóveis MS" />
+        <meta
+          property="og:description"
+          content="Meu perfil | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet."
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <DashboardOffice>
         <Container maxWidth="770px" padding="0" paddingInline="0" width="100%">

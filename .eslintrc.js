@@ -49,6 +49,6 @@ module.exports = {
     'react/no-children-prop': 'off',
     'no-console': 'off',
     'react/no-danger': 'off',
-
+    'jsx-a11y/iframe-has-title': 'off',
   },
 }

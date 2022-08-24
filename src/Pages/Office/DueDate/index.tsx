@@ -105,6 +105,13 @@ export const DueDate: React.FC<any> = () => {
           Vencimentos | Vitrine de Imóveis MS
         </title>
         <meta name="description" content="Vencimentos | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet." />
+        <meta property="og:title" content="Vencimentos | Vitrine de Imóveis MS" />
+        <meta
+          property="og:description"
+          content="Vencimentos | Vitrine de Imóveis MS - A forma mais simples de ser visto na internet."
+        />
+        <meta property="og:url" content="https://vitrinedeimoveisms.com.br/" />
+        <meta property="og:type" content="website" />
       </Head>
       <DashboardOffice>
         { !isMobile && (
